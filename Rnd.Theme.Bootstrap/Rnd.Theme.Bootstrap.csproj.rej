@@ -1,0 +1,9 @@
+diff a/PackageTool/Rnd.Theme.Bootstrap/Rnd.Theme.Bootstrap.csproj b/PackageTool/Rnd.Theme.Bootstrap/Rnd.Theme.Bootstrap.csproj	(rejected hunks)
+@@ -121,6 +121,7 @@
+      </Page>
+ +<<<<<<< Updated upstream
+ +    <Page Include="TabControlStyle.xaml">
+++=======
+      <Page Include="FontStyle.xaml">
+ +>>>>>>> Stashed changes
+        <SubType>Designer</SubType>

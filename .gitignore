@@ -1,0 +1,11 @@
+Rnd.Theme.Bootstrap/obj/
+PackageTool/bin/
+PackageTool/obj/
+PackageToolUnitTest/bin/
+PackageToolUnitTest/obj/
+Rnd.Common/bin/
+Rnd.Common/obj/
+Rnd.DataAccess/bin/
+Rnd.DataAccess/obj/
+Rnd.Tekla.Helper/bin/
+Rnd.Tekla.Helper/obj/

@@ -1,0 +1,151 @@
+﻿<view:RNDWindow x:Class="PackageTool.View.ProgressDialogView"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:view="clr-namespace:PackageTool.View"
+                xmlns:viewModel="clr-namespace:PackageTool.ViewModel"
+                Title="ProgressDialogView"
+                Width="510"
+                Height="215"
+                AllowsTransparency="True"
+                Background="{x:Null}"
+                ResizeMode="NoResize"
+                ShowInTaskbar="False"
+                Style="{StaticResource WindowTextStyle}"
+                WindowStartupLocation="CenterOwner"
+                WindowStyle="None">
+
+    <Window.Effect>
+        <DropShadowEffect BlurRadius="20"
+                          Opacity="0.75"
+                          ShadowDepth="1" />
+    </Window.Effect>
+
+    <Window.DataContext>
+        <viewModel:ProgressDialogViewModel IsIndeterminate="False" />
+    </Window.DataContext>
+
+
+    <Border Margin="20"
+            Background="White"
+            BorderBrush="{StaticResource HoverBorderBrush}"
+            BorderThickness=".5"
+            CornerRadius="3">
+
+        <Grid Name="GridContainer">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="220*" />
+                <ColumnDefinition Width="213*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="27*" />
+                <RowDefinition Height="25*" />
+                <RowDefinition Height="85*" />
+                <RowDefinition Height="35*" />
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0"
+                    Grid.ColumnSpan="2"
+                    BorderBrush="{StaticResource HoverBorderBrush}"
+                    BorderThickness="0,0,0,.5">
+                <Label Name="LblWait"
+                       Margin="5,0,5,0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       HorizontalContentAlignment="Center"
+                       VerticalContentAlignment="Center"
+                       Content="{Binding LblWaitContent}" />
+            </Border>
+
+            <Button Name="BtnCreatePackageClose"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Width="12"
+                    Height="12"
+                    Margin="0,5,10,10"
+                    HorizontalAlignment="Right"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    Command="{Binding CloseDialog}"
+                    IsEnabled="{Binding IsEnableClose}"
+                    Style="{StaticResource IconButton}">
+                <Button.Resources>
+                    <Geometry x:Key="Geo">M19.541667,17.375 L16.832999,14.8125 C16.832999,14.8125 15.91678,14.271439 15.229365,14.917146 14.541949,15.562854 15.083721,16.375099 15.083721,16.375099 L17.708489,18.874851 15.1675,21.332941 C15.1675,21.332941 14.688461,22.124902 15.292467,22.708206 15.896472,23.291511 16.875378,22.875205 16.875378,22.875205 L19.395538,20.47936 22.082321,22.833493 C22.082321,22.833493 22.915804,23.375152 23.561495,22.833493 24.207186,22.291834 23.790098,21.271075 23.790098,21.271075 L21.186815,18.85442 23.686182,16.354433 C23.686182,16.354433 24.186056,15.458604 23.623698,14.958607 23.061341,14.458609 22.228218,14.562775 22.040765,14.729441 21.853313,14.896107 19.541667,17.375 19.541667,17.375 z</Geometry>
+                </Button.Resources>
+            </Button>
+            <StackPanel Grid.Row="1"
+                        Grid.RowSpan="2"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="10,0"
+                        Orientation="Vertical">
+                <StackPanel Grid.Row="1"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                    <Image Name="ImgCheck"
+                           Width="15"
+                           Height="15"
+                           Source="../Images/check20x20.png"
+                           Visibility="{Binding Visibility}" />
+                    <Label Name="LblDetails"
+                           Margin="5"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           HorizontalContentAlignment="Center"
+                           VerticalContentAlignment="Center"
+                           Content="{Binding LblDetailsContent}" />
+                </StackPanel>
+
+                <!--  Exporting files... .. .  -->
+                <Grid Name="ProgressBarTextBlockHolder">
+                    <ProgressBar Name="PbLoading"
+                                 Height="20"
+                                 Margin="10,0,10,0"
+                                 IsIndeterminate="{Binding IsIndeterminate}"
+                                 Value="{Binding CurrentProgress}" />
+
+                </Grid>
+
+                <StackPanel Name="SpPreviewDetails"
+                            Margin="0,10,10,0"
+                            Visibility="{Binding Visibility}">
+                    <Grid Margin="10,0,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <CheckBox Name="ChkPreviewTransmittal"
+                                  Grid.Row="0"
+                                  Content="Preview transmittal"
+                                  IsChecked="{Binding IsPreviewTransmittal}" />
+                        <CheckBox Name="ChkPackageFolder"
+                                  Grid.Row="1"
+                                  Content="Show package folder"
+                                  IsChecked="{Binding IsPackageFolder}" />
+
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+            <Border Grid.Row="3"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    BorderBrush="{StaticResource HoverBorderBrush}"
+                    BorderThickness="0,.5,0,0">
+
+                <Button Name="BtnCreatePackageOk"
+                        Width="68"
+                        Height="Auto"
+                        Margin="0,5,20,5"
+                        HorizontalAlignment="Right"
+                        Command="{Binding CreatePackageOK}"
+                        Content="OK"
+                        IsEnabled="{Binding IsEnableOk}" />
+            </Border>
+
+
+        </Grid>
+    </Border>
+
+
+</view:RNDWindow>
+

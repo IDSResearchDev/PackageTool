@@ -1,0 +1,74 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="DefaultBackgroundColor"
+           A="255"
+           B="255"
+           G="255"
+           R="255" />
+
+    <Color x:Key="PrimaryNormalBackgroundColor"
+           A="255"
+           B="163"
+           G="108"
+           R="0" />
+    <Color x:Key="GlowBlue">#66AFE9</Color>
+    <SolidColorBrush x:Key="GlowBlueBrush" Color="{StaticResource GlowBlue}" />
+    <SolidColorBrush x:Key="NormalBorderBrush" Color="#999999" />
+    <SolidColorBrush x:Key="NormalBackgroundBrush" Color="White" />
+    <SolidColorBrush x:Key="HoverBorderBrush" Color="#999999" />
+    <SolidColorBrush x:Key="HoverBackgroundBrush" Color="#e6e6e6" />
+    <SolidColorBrush x:Key="PressedBorderBrush" Color="#00aad4" />
+    <SolidColorBrush x:Key="PressedBackgroundBrush" Color="#00aad4" />
+    <SolidColorBrush x:Key="PressedForegroundBrush" Color="White" />
+    <SolidColorBrush x:Key="FocusBorderBrush" Color="#999999" />
+    <SolidColorBrush x:Key="DisabledBackgroundBrush" Color="#f2f2f2" />
+    <SolidColorBrush x:Key="DisabledBorderBrush" Color="#999999" />
+    <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#999999" />
+    <SolidColorBrush x:Key="PrimaryNormalBorderBrush" Color="#cccccc" />
+    <SolidColorBrush x:Key="PrimaryFocusBorderBrush" Color="#808080" />
+    <SolidColorBrush x:Key="PrimaryFocusBackgroundBrush" Color="#006ca3" />
+    <SolidColorBrush x:Key="PrimaryHoverBorderBrush" Color="#00599a" />
+    <SolidColorBrush x:Key="PrimaryHoverBackgroundBrush" Color="#00599a" />
+    <SolidColorBrush x:Key="PrimaryPressedBorderBrush" Color="#00479a" />
+    <SolidColorBrush x:Key="PrimaryPressedBackgroundBrush" Color="#00479a" />
+    <SolidColorBrush x:Key="PrimaryPressedForegroundBrush" Color="White" />
+
+    <!--  New Additions  -->
+    <SolidColorBrush x:Key="TabControl.Border" Color="#999999" />
+    <SolidColorBrush x:Key="TabControl.Background.White" Color="White" />
+    <SolidColorBrush x:Key="TabControl.Background.Transparent" Color="Transparent" />
+    <SolidColorBrush x:Key="TabItem.Unselected.Foreground" Color="#337ab7" />
+    <SolidColorBrush x:Key="TabItem.Unselected.Background" Color="Transparent" />
+    <SolidColorBrush x:Key="TabItem.Hover" Color="#e6e6e6" />
+    <!--  TabControl  -->
+
+    <!--  CheckBox  -->
+    <SolidColorBrush x:Key="OptionMark.Static.Background" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="OptionMark.Static.Border" Color="#FF707070" />
+    <SolidColorBrush x:Key="OptionMark.MouseOver.Background" Color="#FFF3F9FF" />
+    <SolidColorBrush x:Key="OptionMark.MouseOver.Border" Color="#00aad4" />
+    <SolidColorBrush x:Key="OptionMark.MouseOver.Glyph" Color="#FF212121" />
+    <SolidColorBrush x:Key="OptionMark.Disabled.Background" Color="#FFE6E6E6" />
+    <SolidColorBrush x:Key="OptionMark.Disabled.Border" Color="#FFBCBCBC" />
+    <SolidColorBrush x:Key="OptionMark.Disabled.Glyph" Color="#FF707070" />
+    <SolidColorBrush x:Key="OptionMark.Pressed.Background" Color="#FFD9ECFF" />
+    <SolidColorBrush x:Key="OptionMark.Pressed.Border" Color="#FF3C77DD" />
+    <SolidColorBrush x:Key="OptionMark.Pressed.Glyph" Color="#FF212121" />
+    <SolidColorBrush x:Key="OptionMark.Static.Glyph" Color="#FF212121" />
+    <!--  CheckBox  -->
+
+    <!--  ProgressBar  -->
+    <SolidColorBrush x:Key="ProgressBar.Foreground" Color="White" />
+    <SolidColorBrush x:Key="ProgressBar.Progress" Color="#337ab7" />
+    <SolidColorBrush x:Key="ProgressBar.Background" Color="#FFE6E6E6" />
+    <SolidColorBrush x:Key="ProgressBar.Border" Color="#FFBCBCBC" />
+    <!--  ProgressBar  -->
+
+    <SolidColorBrush x:Key="WhiteBackgroundBrush" Color="#ffffff" />
+    <SolidColorBrush x:Key="BlackForegroundBrush" Color="#000000" />
+    <SolidColorBrush x:Key="TextBoxFocusedBorderBrush" Color="#00aad4" />
+    <SolidColorBrush x:Key="RedBorderBrush" Color="#d40000" />
+    <SolidColorBrush x:Key="ToolTipBackgroundBrush" Color="#333333" />
+
+
+</ResourceDictionary>

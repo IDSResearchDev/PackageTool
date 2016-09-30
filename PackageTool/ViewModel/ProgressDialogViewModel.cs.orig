@@ -1,0 +1,307 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using PackageTool.BaseClass;
+using PackageTool.Model;
+using PackageTool.View;
+using Rnd.TeklaStructure.Helper;
+using Rnd.TeklaStructure.Helper.Enums;
+using Utilities = Rnd.Common.Utilities;
+
+namespace PackageTool.ViewModel
+{
+    public  class ProgressDialogViewModel : ViewModelBase
+    {
+        private bool _isPreviewTransmittal;
+        private bool _isPackageFolder;
+        private string _lblwaitcontent;
+        private string _lblDetailsContent;
+        private bool _isEnableClose;
+        private bool _isEnableOk;
+        private ReportView rpt;
+
+        public ProgressDialogViewModel()
+        {
+            HideControls();
+            
+            var commonUtilities = new Utilities();
+            if (commonUtilities.CheckIfFileExists(GlobalVars.OutputTransmittalLetter))
+            {
+                File.Delete(GlobalVars.OutputTransmittalLetter);
+            }
+
+            try
+            {
+                StartExport();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("Error", err.Message);
+                Close();
+            }
+        }
+
+
+        private Visibility _visibility;
+        public Visibility Visibility
+        {
+            get { return _visibility; }
+            set
+            {
+                if (_visibility == value) return;
+                _visibility = value;
+                OnPropertyChanged("Visibility");
+            }
+        }
+
+        public bool IsPreviewTransmittal
+        {
+            get
+            {
+                return _isPreviewTransmittal;
+            }
+            set
+            {
+                _isPreviewTransmittal = value;
+                OnPropertyChanged("IsPreviewTransmittal");
+            }
+        }
+
+        public bool IsPackageFolder
+        {
+            get
+            {
+                return _isPackageFolder;
+            }
+            set
+            {
+                _isPackageFolder = value;
+                OnPropertyChanged("IsPackageFolder");
+            }
+        }
+
+
+        private int _currentProgress;
+        public int CurrentProgress
+        {
+            get { return _currentProgress; }
+            set
+            {
+                if (_currentProgress == value) return;
+                _currentProgress = value;
+                OnPropertyChanged("CurrentProgress");
+            }
+        }
+
+
+        private string _pdfdir
+        {
+            get
+            {
+                var dir = GlobalVars.PackageDirectory + @"\PDF";
+
+                if (!Directory.Exists(dir))
+                    Directory.CreateDirectory(dir);
+
+                return dir;
+            }
+        }
+
+        private string _dwgdir
+        {
+            get
+            {
+                var dir = GlobalVars.PackageDirectory + @"\DWG";
+
+                if (!Directory.Exists(dir))
+                    Directory.CreateDirectory(dir);
+
+                return dir;
+            }
+        }
+
+        private string _dxfdir
+        {
+            get
+            {
+                var dir = GlobalVars.PackageDirectory + @"\DXF";
+
+                if (!Directory.Exists(dir))
+                    Directory.CreateDirectory(dir);
+
+                return dir;
+            }
+        }
+
+        private async void StartExport()
+        {
+            Drawings drawings = new Drawings();
+            List<object> drawing = drawings.SelectedDrawing;
+            int drawingcount = drawing.Count;
+            TransmittalModel transmittal = new TransmittalModel();
+            transmittal.Delete();
+
+
+            await Task.Run(() =>
+            {
+                    
+                int i = 0;
+                foreach (var drw in drawing)
+                {
+                    i++;
+
+                    var sheetname = drawings.GetName(drw);
+                    var revision = drawings.RevisionMark(drw);
+
+                    if (GlobalVars.cfgModel.PDF)
+                    {
+                        //drawings.ExportDrawings(_pdfdir, ExportType.PDF, drw);
+                        drawings.ExportPDF(_pdfdir, ExportType.PDF, drw,GlobalVars.PrinterInstance);
+                     
+                        transmittal.Insert(sheetname, revision, ExportType.PDF.ToString());
+                    }
+                    if (GlobalVars.cfgModel.DWG)
+                    {
+                        drawings.ExportDrawings(_dwgdir, ExportType.DWG, drw);
+                        transmittal.Insert(sheetname, revision, ExportType.DWG.ToString());
+                    }
+                    if (GlobalVars.cfgModel.DXF)
+                    {
+                        drawings.ExportDrawings(_dxfdir, ExportType.DXF, drw);
+                        transmittal.Insert(sheetname, revision, ExportType.DXF.ToString());
+                    }
+                    CurrentProgress = Convert.ToInt32(((double)i / drawingcount) * 100);
+                        
+                }
+                
+                CurrentProgress = 100;
+            });
+
+            rpt = new ReportView();
+
+<<<<<<< Updated upstream
+
+            ShowControls();
+
+        }
+
+        private void ShowControls()
+        {
+=======
+>>>>>>> Stashed changes
+            IsEnableOk = true;
+            IsEnableClose = true;
+            LblWaitContent = "Package Tool Completed";
+            LblDetailsContent = "It's done.";
+            Visibility = Visibility.Visible;
+        }
+
+        private void HideControls()
+        {
+            //_isPreviewTransmittal = true;
+            _isEnableOk = false;
+            _isEnableClose = false;
+            _lblwaitcontent = "Please Wait...";
+            _lblDetailsContent = "Exporting files...";
+            _visibility = Visibility.Hidden;
+        }
+
+
+        public bool IsEnableOk
+        {
+            get { return _isEnableOk; }
+            set
+            {
+                if (_isEnableOk == value) return;
+                _isEnableOk = value;
+                OnPropertyChanged("IsEnableOk");
+            }
+        }
+
+        public bool IsEnableClose
+        {
+            get { return _isEnableClose; }
+            set
+            {
+                if (_isEnableClose == value) return;
+                _isEnableClose = value;
+                OnPropertyChanged("IsEnableClose");
+            }
+        }
+
+        public string LblWaitContent
+        {
+            get { return _lblwaitcontent; }
+            set
+            {
+                if (_lblwaitcontent == value) return;
+                _lblwaitcontent = value;
+                OnPropertyChanged("LblWaitContent");
+            }
+        }
+
+        public string LblDetailsContent
+        {
+            get { return _lblDetailsContent; }
+            set
+            {
+                if (_lblDetailsContent == value) return;
+                _lblDetailsContent = value;
+                OnPropertyChanged("LblDetailsContent");
+            }
+        }
+
+        public ICommand CloseDialog
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    Close();
+                });
+            }
+        }
+
+        
+        public ICommand CreatePackageOK
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    if (IsPreviewTransmittal)
+                    {
+                        ShowReportViewer();
+                    }
+
+                    if (IsPackageFolder)
+                    {
+                        
+                        PackageFolder();
+                    }
+                    
+                    Close();   
+                });
+            }
+        }
+
+        
+        private void ShowReportViewer()
+        {
+            rpt = new ReportView();
+            rpt.Show();
+            
+        }
+
+        private void PackageFolder()
+        {
+            
+            Process.Start(GlobalVars.PackageDirectory);
+        }
+    }
+}
