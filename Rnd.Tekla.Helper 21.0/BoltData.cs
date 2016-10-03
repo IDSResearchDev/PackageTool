@@ -67,7 +67,7 @@ namespace Rnd.TeklaStructure.Helper
                  
 
 
-                    int id = 0;
+                    //int id = 0;
                     List<int> connectionId = new List<int>();
                     foreach (Connection connection in b.GetComponents())
                     {

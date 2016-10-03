@@ -168,6 +168,7 @@ namespace PackageTool.ViewModel
         {
             get
             {
+                // transfer to tekla helper
                 string dir = "";
                 TeklaStructuresSettings.GetAdvancedOption("XS_REPORT_OUTPUT_DIRECTORY", ref dir);
                 if (dir.Equals(@".\Reports")) dir = Path.Combine(GlobalVars.ModelFolder, "Reports");

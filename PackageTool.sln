@@ -1,21 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PackageTool", "PackageTool\PackageTool.csproj", "{05D7092E-10B0-4555-AB2D-3BFBF4776302}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rnd.Common", "Rnd.Common\Rnd.Common.csproj", "{9012F455-2B9E-4D24-9D6C-928BC596E364}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rnd.TeklaStructure.Helper", "Rnd.Tekla.Helper\Rnd.TeklaStructure.Helper.csproj", "{2FB766B1-075B-4E1B-AF77-1B1AB30891D6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rnd.Theme.Bootstrap", "Rnd.Theme.Bootstrap\Rnd.Theme.Bootstrap.csproj", "{D5F6DBAD-EB28-4098-A3D6-8D6C89B13FCB}"
 EndProject
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> 38181926ae82edb2fcd5489e70fe137b29247a85
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - App", "0 - App", "{81D51441-91C6-4DC5-9C8C-EAC1662CEE70}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Themes", "2 - Themes", "{240D68EA-1235-4F80-B914-7BC287C3AE0E}"
@@ -24,13 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Common", "1 - Common", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Unit Test", "3 - Unit Test", "{75811D77-551A-46E2-BFCC-4BCC49489F00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PackageToolUnitTest", "PackageToolUnitTest\PackageToolUnitTest.csproj", "{3C03113C-0F36-4C7A-98CF-5BF08E299FE5}"
-EndProject
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> 38181926ae82edb2fcd5489e70fe137b29247a85
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rnd.DataAccess", "Rnd.DataAccess\Rnd.DataAccess.csproj", "{0D1874F6-A09A-4FC4-A02C-1ED023A7E63D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rnd.TeklaStructure.Helper", "Rnd.Tekla.Helper 21.1\Rnd.TeklaStructure.Helper.csproj", "{2FB766B1-075B-4E1B-AF77-1B1AB30891D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,31 +35,18 @@ Global
 		{9012F455-2B9E-4D24-9D6C-928BC596E364}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9012F455-2B9E-4D24-9D6C-928BC596E364}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9012F455-2B9E-4D24-9D6C-928BC596E364}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2FB766B1-075B-4E1B-AF77-1B1AB30891D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2FB766B1-075B-4E1B-AF77-1B1AB30891D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2FB766B1-075B-4E1B-AF77-1B1AB30891D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2FB766B1-075B-4E1B-AF77-1B1AB30891D6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D5F6DBAD-EB28-4098-A3D6-8D6C89B13FCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D5F6DBAD-EB28-4098-A3D6-8D6C89B13FCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5F6DBAD-EB28-4098-A3D6-8D6C89B13FCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5F6DBAD-EB28-4098-A3D6-8D6C89B13FCB}.Release|Any CPU.Build.0 = Release|Any CPU
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> 38181926ae82edb2fcd5489e70fe137b29247a85
-		{3C03113C-0F36-4C7A-98CF-5BF08E299FE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C03113C-0F36-4C7A-98CF-5BF08E299FE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C03113C-0F36-4C7A-98CF-5BF08E299FE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C03113C-0F36-4C7A-98CF-5BF08E299FE5}.Release|Any CPU.Build.0 = Release|Any CPU
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> 38181926ae82edb2fcd5489e70fe137b29247a85
 		{0D1874F6-A09A-4FC4-A02C-1ED023A7E63D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0D1874F6-A09A-4FC4-A02C-1ED023A7E63D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D1874F6-A09A-4FC4-A02C-1ED023A7E63D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D1874F6-A09A-4FC4-A02C-1ED023A7E63D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FB766B1-075B-4E1B-AF77-1B1AB30891D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FB766B1-075B-4E1B-AF77-1B1AB30891D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FB766B1-075B-4E1B-AF77-1B1AB30891D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FB766B1-075B-4E1B-AF77-1B1AB30891D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,9 +54,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{05D7092E-10B0-4555-AB2D-3BFBF4776302} = {81D51441-91C6-4DC5-9C8C-EAC1662CEE70}
 		{9012F455-2B9E-4D24-9D6C-928BC596E364} = {93A3ED9E-523D-4AEE-B01A-B740D210EFBB}
-		{2FB766B1-075B-4E1B-AF77-1B1AB30891D6} = {93A3ED9E-523D-4AEE-B01A-B740D210EFBB}
 		{D5F6DBAD-EB28-4098-A3D6-8D6C89B13FCB} = {240D68EA-1235-4F80-B914-7BC287C3AE0E}
-		{3C03113C-0F36-4C7A-98CF-5BF08E299FE5} = {75811D77-551A-46E2-BFCC-4BCC49489F00}
 		{0D1874F6-A09A-4FC4-A02C-1ED023A7E63D} = {93A3ED9E-523D-4AEE-B01A-B740D210EFBB}
+		{2FB766B1-075B-4E1B-AF77-1B1AB30891D6} = {93A3ED9E-523D-4AEE-B01A-B740D210EFBB}
 	EndGlobalSection
 EndGlobal
