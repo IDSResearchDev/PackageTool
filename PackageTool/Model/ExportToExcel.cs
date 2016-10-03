@@ -25,8 +25,8 @@ namespace PackageTool.Model
         private string _jobnum;
         private string _jcode;
 
-        private ObservableCollection<TransmittalData> data = new ObservableCollection<TransmittalData>(GlobalVars.TransmittalDatas);
-        ObservableCollection<XsrReports> xsrRpt = new ObservableCollection<XsrReports>(GlobalVars.XsrReportList); 
+        private ObservableCollection<TransmittalData> data = GlobalVars.TransmittalDatas; //= new ObservableCollection<TransmittalData>(GlobalVars.TransmittalDatas);
+        private ObservableCollection<XsrReports> xsrRpt = new ObservableCollection<XsrReports>(GlobalVars.XsrReportList); 
 
         //IEnumerable<IGrouping<string, TransmittalData>> data1;
         //IEnumerable<IGrouping<string,TransmittalData>> data2;
@@ -41,9 +41,8 @@ namespace PackageTool.Model
 
             _fabricator = projprop.Fabricator;
             _fabaddress = projprop.Fabaddress;
-        } 
+        }
         #endregion
-
 
         public ExportToExcel(string jnum, string jcode)
         {
@@ -53,6 +52,7 @@ namespace PackageTool.Model
 
             //data = GlobalVars.TransmittalDatas;
             FabParams();
+            
         }
 
         private bool HasReports()

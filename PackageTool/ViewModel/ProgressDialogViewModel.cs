@@ -18,11 +18,11 @@ using PackageTool.View;
 using Rnd.TeklaStructure.Helper;
 using Rnd.TeklaStructure.Helper.Enums;
 using Utilities = Rnd.Common.Utilities;
+using TeklaUtilities = Rnd.TeklaStructure.Helper.Utilities;
 using System.Runtime.Remoting.Messaging;
 using System.Windows.Controls;
 using Microsoft.Office.Interop.Excel;
 using Rnd.TeklaStructure.Helper.Reports;
-using Tekla.Structures;
 using Action = System.Action;
 using Drawings = Rnd.TeklaStructure.Helper.Drawings;
 
@@ -32,11 +32,14 @@ namespace PackageTool.ViewModel
     public class ProgressDialogViewModel : ViewModelBase
     {
         private List<string> _dirList = new List<string>();
+        private TeklaUtilities _teklaUtilities;
         readonly Utilities _commonUtilities;
+
         public ProgressDialogViewModel()
         {
             ShowControls(false);
             _commonUtilities = new Utilities();
+            _teklaUtilities = new TeklaUtilities();
             Start();
         }
 
@@ -170,7 +173,7 @@ namespace PackageTool.ViewModel
             {
                 // transfer to tekla helper
                 string dir = "";
-                TeklaStructuresSettings.GetAdvancedOption("XS_REPORT_OUTPUT_DIRECTORY", ref dir);
+                dir = _teklaUtilities.GetAdvancedOption("XS_REPORT_OUTPUT_DIRECTORY");
                 if (dir.Equals(@".\Reports")) dir = Path.Combine(GlobalVars.ModelFolder, "Reports");
                 return dir;
             }
@@ -213,6 +216,7 @@ namespace PackageTool.ViewModel
         }
 
         private string _lblDetailsContent;
+
         public string LblDetailsContent
         {
             get { return _lblDetailsContent; }

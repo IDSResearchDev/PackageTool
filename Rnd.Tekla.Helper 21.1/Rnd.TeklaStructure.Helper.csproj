@@ -48,31 +48,31 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Tekla.BIM.Geometry">
-      <HintPath>..\..\..\..\..\TeklaStructures\21.1\nt\bin\plugins\Tekla.BIM.Geometry.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\TeklaStructures\21.1\nt\bin\plugins\Tekla.BIM.Geometry.dll</HintPath>
     </Reference>
-    <Reference Include="Tekla.Structures, Version=2016.0.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\Tekla.Structures\v4.0_21.1.0.0__2f04dbe497b71114\Tekla.Structures.dll</HintPath>
+    <Reference Include="Tekla.Structures, Version=21.1.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\Tekla.Structures\v4.0_21.1.0.0__2f04dbe497b71114\Tekla.Structures.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="Tekla.Structures.Catalogs, Version=2016.0.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\TeklaStructures\21.1\nt\bin\plugins\Tekla.Structures.Catalogs.dll</HintPath>
+    <Reference Include="Tekla.Structures.Catalogs, Version=21.1.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\Tekla.Structures.Catalogs\v4.0_21.1.0.0__2f04dbe497b71114\Tekla.Structures.Catalogs.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Tekla.Structures.Dialog, Version=2016.0.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\TeklaStructures\21.1\nt\bin\plugins\Tekla.Structures.Dialog.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\Tekla.Structures.Dialog\v4.0_21.1.0.0__2f04dbe497b71114\Tekla.Structures.Dialog.dll</HintPath>
     </Reference>
-    <Reference Include="Tekla.Structures.Drawing, Version=2016.0.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\TeklaStructures\21.1\nt\bin\plugins\Tekla.Structures.Drawing.dll</HintPath>
+    <Reference Include="Tekla.Structures.Drawing, Version=21.1.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\Tekla.Structures.Drawing\v4.0_21.1.0.0__2f04dbe497b71114\Tekla.Structures.Drawing.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="Tekla.Structures.Model, Version=2016.0.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\TeklaStructures\21.1\nt\bin\plugins\Tekla.Structures.Model.dll</HintPath>
+    <Reference Include="Tekla.Structures.Model, Version=21.1.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\Tekla.Structures.Model\v4.0_21.1.0.0__2f04dbe497b71114\Tekla.Structures.Model.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="Tekla.Structures.Plugins, Version=2016.0.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\TeklaStructures\21.1\nt\bin\plugins\Tekla.Structures.Plugins.dll</HintPath>
+    <Reference Include="Tekla.Structures.Plugins, Version=21.1.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\Tekla.Structures.Plugins\v4.0_21.1.0.0__2f04dbe497b71114\Tekla.Structures.Plugins.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>

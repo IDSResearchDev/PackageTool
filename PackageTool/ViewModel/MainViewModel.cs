@@ -18,9 +18,7 @@ using Helper = Rnd.TeklaStructure.Helper;
 using Utilities = Rnd.Common.Utilities;
 using Rnd.Common.Resources;
 using PackageTool.Model;
-using Tekla.Structures;
 using System.Windows.Controls;
-using Rnd.TeklaStructure.Helper.Reports;
 
 namespace PackageTool.ViewModel
 {
