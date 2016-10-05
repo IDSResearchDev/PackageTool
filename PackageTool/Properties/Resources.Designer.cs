@@ -87,5 +87,14 @@ namespace PackageTool.Properties {
                 return ResourceManager.GetString("pkgrecentdata", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://idsftpserver.com/rd/update/.
+        /// </summary>
+        public static string ServerPath {
+            get {
+                return ResourceManager.GetString("ServerPath", resourceCulture);
+            }
+        }
     }
 }

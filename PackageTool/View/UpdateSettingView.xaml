@@ -60,14 +60,15 @@
                     <RadioButton Name="rbtnRndServer"
                                  Margin="5"
                                  VerticalContentAlignment="Center"
-                                 Content="Online :"
+                                 Content="Online"
                                  IsChecked="{Binding IsRNDServer}" />
                     <TextBox Name="txtServer"
                              Grid.Column="1"
                              Width="250"
                              IsEnabled="{Binding IsRNDServer}"
                              Text="{Binding RNDServer,
-                                            ValidatesOnDataErrors=True}" />
+                                            ValidatesOnDataErrors=True}" 
+                             Visibility="Hidden"/>
                     <RadioButton Name="rbtnLocalFtp"
                                  Grid.Row="1"
                                  Margin="5"

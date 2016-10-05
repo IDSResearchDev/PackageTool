@@ -47,7 +47,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Tekla.BIM.Geometry">
+    <Reference Include="Tekla.BIM.Geometry, Version=21.1.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\..\..\TeklaStructures\21.1\nt\bin\plugins\Tekla.BIM.Geometry.dll</HintPath>
     </Reference>
     <Reference Include="Tekla.Structures, Version=21.1.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">

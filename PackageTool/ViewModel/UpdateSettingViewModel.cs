@@ -26,7 +26,9 @@ namespace PackageTool.ViewModel
             CanValidate = false;
             if (GlobalVars.UpdateConfigModel != null)
             {
-                RNDServer = GlobalVars.UpdateConfigModel.RNDServer;
+                RNDServer = GlobalVars.UpdateConfigModel.RNDServer.Equals(string.Empty)
+                    ? PackageTool.Properties.Resources.ServerPath
+                    : GlobalVars.UpdateConfigModel.RNDServer;
                 FTPServer = GlobalVars.UpdateConfigModel.FTPServer;
                 IsRNDServer = GlobalVars.UpdateConfigModel.IsRndServer;
                 IsFTPServer = GlobalVars.UpdateConfigModel.IsFtpServer;
@@ -122,6 +124,7 @@ namespace PackageTool.ViewModel
 
                     string updater = Path.Combine(GlobalVars.LocalAppPackageToolFolder, @"updater.exe");
 
+                    RNDServer = PackageTool.Properties.Resources.ServerPath;
                     Server = IsRNDServer ? RNDServer : FTPServer;
                     if (String.IsNullOrEmpty(this.Server)) return;
 
@@ -138,7 +141,7 @@ namespace PackageTool.ViewModel
                         };
 
                         util.SerializeBinFile(GlobalVars.LocalUpdateConfigurationFile, GlobalVars.UpdateConfigModel);
-                        Process.Start(updater);
+                        //Process.Start(updater);
                         this.Close();
                     }
                 });
@@ -174,6 +177,9 @@ namespace PackageTool.ViewModel
                     protocol = "ftp://";
                     Server = Server.Replace("/", "");
                     host = System.Net.Dns.GetHostEntry(Server);
+
+                    // format: \\{host.HostName}\Dropbox\Update\{app}_update.txt
+                    // ex. \\ORT070\Dropbox\Update\package_tool_update.txt
 
                     string updateTextFilePath = System.IO.Path.Combine(@"\\" + host.HostName + "\\Dropbox\\Update", updateTextFile);
                     string exeFile = util.GetTextFileValue(updateTextFilePath, delimiter, "ServerFileName");

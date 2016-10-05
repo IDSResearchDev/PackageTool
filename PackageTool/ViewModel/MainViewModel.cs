@@ -1594,17 +1594,21 @@ namespace PackageTool.ViewModel
                     }
                     if (File.Exists(GlobalVars.LocalUpdaterFile))
                     {
-                        if (CheckLatestUpdate())
-                        {
-                            UpdateSettingView update = new UpdateSettingView();
-                            update.Owner = this.GetCurrentWindow();
-                            update.ShowDialog();
-                        }
-                        else
-                        {
-                            Process.Start(updater);
-                        }
+                        Process.Start(updater);
                     }
+                });
+            }
+        }
+
+        public ICommand ViewUpdateSetting
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    UpdateSettingView update = new UpdateSettingView();
+                    update.Owner = this.GetCurrentWindow();
+                    update.ShowDialog();
                 });
             }
         }

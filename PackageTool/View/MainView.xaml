@@ -950,6 +950,19 @@
                         Style="{x:Null}"
                         TextBlock.Foreground="#FF0774B2" />
 
+                <Button Name="BtnSettings"
+                        Margin="10,10,0,10"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Command="{Binding ViewUpdateSetting}"
+                            Content="Settings"
+                            IsTabStop="False"
+                            Style="{x:Null}"
+                        ToolTip="Open Update Setting"
+                            TextBlock.Foreground="#FF0774B2" />
+
                 <Button Name="BtnHelp"
                         Margin="10,10,0,10"
                         HorizontalAlignment="Left"
