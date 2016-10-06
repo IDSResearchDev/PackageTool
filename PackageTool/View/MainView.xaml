@@ -294,7 +294,6 @@
                                      HorizontalAlignment="Left"
                                      VerticalAlignment="Top"
                                             Name="TxtScaleValue"
-                                            KeyUp="TxtScaleValue_KeyUp"
                                      Text="{Binding ScaleValue}" IsEnabled="{Binding IsChecked, ElementName=RbManualScaling}"/>
 
                                     </StackPanel>
