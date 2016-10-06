@@ -433,6 +433,55 @@ namespace PackageTool.ViewModel
             }
         }
 
+        private bool _applyScaling;
+        public bool ApplyScaling
+        {
+            get { return _applyScaling; }
+            set
+            {
+                _applyScaling = value;
+                GlobalVars.ApplyScaling = _applyScaling;
+                OnPropertyChanged("ApplyScaling");
+            }
+        }
+
+        private bool _autoScaling;
+        public bool AutoScaling
+        {
+            get { return _autoScaling; }
+            set
+            {
+                _autoScaling = value;
+                GlobalVars.AutoScaling = _autoScaling;
+                OnPropertyChanged("AutoScaling");
+            }
+        }
+
+        private bool _manualScaling;
+        public bool ManualScaling
+        {
+            get { return _manualScaling; }
+            set
+            {
+                _manualScaling = value;
+                GlobalVars.AutoScaling = !_manualScaling;
+                OnPropertyChanged("ManualScaling");
+            }
+        }
+
+        private string _scaleValue;
+        public string ScaleValue
+        {
+            get { return _scaleValue; }
+            set
+            {
+                _scaleValue = value;
+                GlobalVars.ScaleValue = _scaleValue;
+                OnPropertyChanged("ScaleValue");
+            }
+        }
+
+
 
         #region Sending Selection
         private string _sendingselection;
@@ -1004,6 +1053,9 @@ namespace PackageTool.ViewModel
                         new XElement("date"),
                         new XElement("applyprinterinstance"),
                         new XElement("printerinstance"),
+                        new XElement("applyscaling"),
+                        new XElement("autoscaling"),
+                        new XElement("scalevalue"),
                     new XComment(" Transmittal tab "),
                         new XElement("projectnumber"),
                         new XElement("transmittalnumber"),
@@ -1093,6 +1145,14 @@ namespace PackageTool.ViewModel
                 if (itemElements.Name == "printerinstance") PrinterInstance = itemElements.Value;
                 if (itemElements.Name == "applyprinterinstance") ApplyPrinterInstance = !string.IsNullOrEmpty(itemElements.Value) ? Convert.ToBoolean(itemElements.Value) : false;
                 if (itemElements.Name == "cfg") CfgFilename = itemElements.Value;
+                if (itemElements.Name == "applyscaling") ApplyScaling = !string.IsNullOrEmpty(itemElements.Value) ? Convert.ToBoolean(itemElements.Value) : false;
+                if (itemElements.Name == "autoscaling")
+                {
+                    AutoScaling = !string.IsNullOrEmpty(itemElements.Value) ? Convert.ToBoolean(itemElements.Value) : false;
+                    ManualScaling = !AutoScaling;
+                }
+                if (itemElements.Name == "scalevalue") ScaleValue = itemElements.Value;
+
             }
         }
         public XDocument UpdateXElements()
@@ -1112,6 +1172,10 @@ namespace PackageTool.ViewModel
                 if (itemElements.Name == "printerinstance") itemElements.Value = _printerInstance;
                 if (itemElements.Name == "applyprinterinstance") itemElements.Value = _applyPrinterInstance.ToString();
                 if (itemElements.Name == "cfg") itemElements.Value = CfgFilename;
+                if (itemElements.Name == "applyscaling") itemElements.Value = ApplyScaling.ToString();
+                if (itemElements.Name == "autoscaling") itemElements.Value = AutoScaling.ToString();
+                if (itemElements.Name == "scalevalue") itemElements.Value = ScaleValue;
+
             }
             return _xDoc;
         }
@@ -1469,7 +1533,7 @@ namespace PackageTool.ViewModel
                     view.Owner = this.GetCurrentWindow();
 
                     foreach (var item in GlobalVars.PrinterSelection)
-                    { view.vm.PrinterSelection.Add(item); }
+                    { view.vm.PrinterSelection.Add(item); }                   
                     view.ShowDialog();
 
                 });
@@ -1563,6 +1627,21 @@ namespace PackageTool.ViewModel
                             else
                                 ShowPackageDir(GlobalVars.OutputDirectory/*, "Output Directory"*/);
                         }
+
+                    }
+                });
+            }
+        }
+
+        public ICommand TxtScaleValue_KeyUp
+        {
+            get
+            {
+                return new DelegateCommand((sender) =>
+                {
+                    var textbox = sender as TextBox;
+                    if (textbox != null)
+                    {
 
                     }
                 });

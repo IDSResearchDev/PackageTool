@@ -21,7 +21,7 @@ namespace PackageTool.View
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            this.VM.IsKeyLeftControl = e.Key == Key.LeftCtrl;
+            this.VM.IsKeyLeftControl = e.Key == Key.LeftCtrl;            
         }
     }
 }

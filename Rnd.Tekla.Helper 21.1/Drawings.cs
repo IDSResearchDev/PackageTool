@@ -127,28 +127,6 @@ namespace Rnd.TeklaStructure.Helper
             }
         }
 
-
-
-        public void Export(string outputdir, ExportType exportType, string printerinstance, object drawing = null)
-        {
-            _exportType = exportType;
-            _outputdir = outputdir;
-
-            if (_drawingHandler.GetConnectionStatus())
-            {
-                switch (exportType)
-                {
-                    case ExportType.PDF:
-                        ConvertPDF((Drawing)drawing, printerinstance);
-                        break;
-                    case ExportType.DWG:
-                        ConvertDWG();
-                        break;
-                }
-            }
-
-        }
-
         public string GetMark(object drawing)
         {
             var drw = (Drawing)drawing;
@@ -368,6 +346,55 @@ namespace Rnd.TeklaStructure.Helper
             }
             return ".pdf";
         }
+       
+        //private string _dxfmacro = @"C:\TeklaStructures\21.0\Environments\usimp\us_roles\steel\macros\modeling\";
+        public void ConvertDXF()
+        {
+            Operation.RunMacro(@"..\modeling\PackageTool DXFConverter.cs");
+        }
+
+
+        public void ExportPDF(string outputdir, string printerinstance, bool autoScaling, string scaleValue, object drawing = null)
+        {
+            _exportType = ExportType.PDF;
+            _outputdir = outputdir;
+
+            var _scaleValue = 1.00;
+            Double.TryParse(scaleValue, out _scaleValue);
+
+            if (_drawingHandler.GetConnectionStatus())
+            {
+                ConvertPDF((Drawing)drawing, printerinstance, autoScaling, _scaleValue);
+            }
+
+        }
+
+        public void ConvertPDF(Drawing drawing, string printerinstance, bool autoScaling, double scaleValue)
+        {
+            CatalogHandler CatalogHandler = new CatalogHandler();
+
+            if (CatalogHandler.GetConnectionStatus())
+            {
+                PrintAttributes printAttributes = new PrintAttributes();
+                printAttributes.PrinterInstance = string.IsNullOrEmpty(printerinstance) ? Size(drawing) : printerinstance;
+                printAttributes.ScalingType = autoScaling ? DotPrintScalingType.Auto : DotPrintScalingType.Scale;
+                printAttributes.Scale = scaleValue;
+
+                _drawingHandler.PrintDrawing(drawing, printAttributes);
+            }
+        }
+
+        public void ExportDWG(string outputdir)
+        {
+            _exportType = ExportType.DWG;
+            _outputdir = outputdir;
+
+            if (_drawingHandler.GetConnectionStatus())
+            {
+                ConvertDWG();
+            }
+
+        }
 
         public void ConvertDWG()
         {
@@ -385,31 +412,6 @@ namespace Rnd.TeklaStructure.Helper
             }
 
         }
-        //private string _dxfmacro = @"C:\TeklaStructures\21.0\Environments\usimp\us_roles\steel\macros\modeling\";
-        public void ConvertDXF()
-        {
-            Operation.RunMacro(@"..\modeling\PackageTool DXFConverter.cs");
-        }
-
-        public void ConvertPDF(Drawing drawing, string printerinstance)
-        {
-            CatalogHandler CatalogHandler = new CatalogHandler();
-            //string instance = string.IsNullOrEmpty(printerinstance) ? Size(drawing) : printerinstance;
-            //var instances = new Utilities().PrinterInstance();
-
-            //if (!instances.Contains(instance))
-            //    throw new Exception("Create a " + instance + " first in Printer Instances.");
-            
-            if (CatalogHandler.GetConnectionStatus())
-            {                
-                PrintAttributes printAttributes = new PrintAttributes();
-                printAttributes.PrinterInstance = string.IsNullOrEmpty(printerinstance) ? Size(drawing) : printerinstance;
-                printAttributes.ScalingType = DotPrintScalingType.Scale;
-
-                _drawingHandler.PrintDrawing(drawing, printAttributes);
-            }
-        }
-
 
         public void CreateNCFiles(string dxfdir, bool IsAngles, bool IsPlates, bool IsProfiles)
         {
@@ -599,6 +601,47 @@ namespace Rnd.TeklaStructure.Helper
             }
         }
 
+        #endregion
+
+        #region Unused methods
+        public void Export(string outputdir, ExportType exportType, string printerinstance, object drawing = null)
+        {
+            _exportType = exportType;
+            _outputdir = outputdir;
+
+            if (_drawingHandler.GetConnectionStatus())
+            {
+                switch (exportType)
+                {
+                    case ExportType.PDF:
+                        ConvertPDF((Drawing)drawing, printerinstance);
+                        break;
+                    case ExportType.DWG:
+                        ConvertDWG();
+                        break;
+                }
+            }
+
+        }        
+
+        public void ConvertPDF(Drawing drawing, string printerinstance)
+        {
+            CatalogHandler CatalogHandler = new CatalogHandler();
+            //string instance = string.IsNullOrEmpty(printerinstance) ? Size(drawing) : printerinstance;
+            //var instances = new Utilities().PrinterInstance();
+
+            //if (!instances.Contains(instance))
+            //    throw new Exception("Create a " + instance + " first in Printer Instances.");
+
+            if (CatalogHandler.GetConnectionStatus())
+            {
+                PrintAttributes printAttributes = new PrintAttributes();
+                printAttributes.PrinterInstance = string.IsNullOrEmpty(printerinstance) ? Size(drawing) : printerinstance;
+                printAttributes.ScalingType = DotPrintScalingType.Scale;
+
+                _drawingHandler.PrintDrawing(drawing, printAttributes);
+            }
+        }
         #endregion
     }
 }

@@ -107,12 +107,12 @@ namespace PackageTool.ViewModel
             }
         }
         private string _newpkgdir;
-        
+
         private string _pdfdir
         {
             get
             {
-                var dir = Path.Combine(GlobalVars.PackageDirectory,"PDF");
+                var dir = Path.Combine(GlobalVars.PackageDirectory, "PDF");
 
                 if (!Directory.Exists(dir))
                     Directory.CreateDirectory(dir);
@@ -125,7 +125,7 @@ namespace PackageTool.ViewModel
         {
             get
             {
-                var dir = Path.Combine(GlobalVars.PackageDirectory,"DWG");
+                var dir = Path.Combine(GlobalVars.PackageDirectory, "DWG");
 
                 if (!Directory.Exists(dir))
                     Directory.CreateDirectory(dir);
@@ -325,7 +325,7 @@ namespace PackageTool.ViewModel
                     }
                 }
 
-                
+
             }
         }
 
@@ -335,13 +335,13 @@ namespace PackageTool.ViewModel
             {
                 CurrentProgress = 0;
                 ValidatePrinterInstance();
-               
+
 
                 var date = DateTime.Now.ToShortDateString().Trim().Replace("/", "");
                 var time = DateTime.Now.ToLongTimeString().Trim().Replace(":", ".");
                 //var oldpkgdir = GlobalVars.PackageDirectory;
                 _newpkgdir = GlobalVars.PackageDirectory + "\\" + GlobalVars.JobCode + "_" + date + "_" + time;
-                GlobalVars.ReportPackageDirectory = Path.Combine(_newpkgdir,"Reports");
+                GlobalVars.ReportPackageDirectory = Path.Combine(_newpkgdir, "Reports");
                 //GlobalVars.PackageDirectory = newpkgdir;
                 //Directory.CreateDirectory(_newpkgdir);
 
@@ -350,7 +350,7 @@ namespace PackageTool.ViewModel
                 int drawingcount = selecteddrawing.Count;
                 var drwtype = "";
 
-                
+
                 GlobalVars.TransmittalDatas = new ObservableCollection<TransmittalData>();
                 ExportToExcel exportExcel = new ExportToExcel(GlobalVars.JobNumber, GlobalVars.JobCode);
                 int i;
@@ -359,26 +359,41 @@ namespace PackageTool.ViewModel
                 if (GlobalVars.cfgModel.PDF)
                 {
                     CurrentProgress = 0;
-                    
+
                     LblDetailsContent = "Exporting PDF files...";
                     i = 0;
                     foreach (var drw in selecteddrawing)
                     {
                         i++;
                         var printerinstance = GlobalVars.ApplyPrinterInstance ? GlobalVars.PrinterInstance : string.Empty;
+                        
+
+                        var autoScaling = GlobalVars.AutoScaling;
+                        var scaleValue = GlobalVars.ScaleValue;
+
+                        var size = drawings.Size(drw);
+
                         if (printerinstance.Equals(string.Empty))
                         {
-                            var size = drawings.Size(drw);
                             this.GetPrinterSelectionInstance(size, ref printerinstance);
                         }
 
-                        drawings.Export(_pdfdir, ExportType.PDF, printerinstance, drw);
-                        
+                        if(!GlobalVars.ApplyScaling)
+                        {
+                            PrinterSelectionModel scaling = null;
+                            this.GetPrinterSelectionInstance(size, ref scaling);
+                            autoScaling = !scaling.ManualScaling;
+                            scaleValue = scaling.ScaleValue.Trim();
+                        }
+
+                        //drawings.Export(_pdfdir, ExportType.PDF, printerinstance, drw);
+                        drawings.ExportPDF(_pdfdir, printerinstance, autoScaling, scaleValue, drw);
+
                         drwtype = drawings.Type(drw);
 
                         GlobalVars.TransmittalDatas.Add(new TransmittalData()
                         {
-                            
+
                             SheetName = ((drwtype.Equals("A")) || (drwtype.Equals("W")))
                                             ? drawings.GetMark(drw)
                                             : drawings.GetName(drw),
@@ -398,7 +413,7 @@ namespace PackageTool.ViewModel
                     i = 0;
                     LblDetailsContent = "Exporting DWG files...";
 
-                    drawings.Export(_dwgdir, ExportType.DWG, string.Empty);
+                    drawings.ExportDWG(_dwgdir);
 
                     foreach (var drw in selecteddrawing)
                     {
@@ -453,14 +468,14 @@ namespace PackageTool.ViewModel
                     GlobalVars.MainWindow.Dispatcher.BeginInvoke(new Action(() =>
                     {
                         var diagresult =
-                        MessageBox.Show(this.GetCurrentWindow(),"You're about to export DXF files. Please specify the NC Files on the next dialog to continue.",
+                        MessageBox.Show(this.GetCurrentWindow(), "You're about to export DXF files. Please specify the NC Files on the next dialog to continue.",
                                     "DXF Export", MessageBoxButton.OKCancel, MessageBoxImage.Information);
                         if (diagresult == MessageBoxResult.OK)
                         {
                             var x = _dxfdir;
                             drawings.ConvertDXF();
                         }
-                        
+
                         //GlobalVars.SuspendProcess = false;
                         SuspendProcess(false);
                     }));
@@ -479,7 +494,7 @@ namespace PackageTool.ViewModel
 
                     if (!GlobalVars.UseKssTemplate)
                     {
-                        drawings.CreateKssFiles(GlobalVars.KssName);                        
+                        drawings.CreateKssFiles(GlobalVars.KssName);
                     }
                     else
                     {
@@ -519,7 +534,7 @@ namespace PackageTool.ViewModel
                         }
                     }
 
-                    
+
 
                     CurrentProgress = 100;
                 }
@@ -533,7 +548,7 @@ namespace PackageTool.ViewModel
                 exportExcel.ReadXls(date, time);
                 CurrentProgress = 100;
 
-                
+
 
             }
             catch (Exception ex)
@@ -541,7 +556,7 @@ namespace PackageTool.ViewModel
                 throw ex;
             }
         }
-        
+
         //private string BasdenRptName(string rptname)
         //{
         //    var rname = rptname.Replace(".xls","");
@@ -551,14 +566,26 @@ namespace PackageTool.ViewModel
 
         private bool GetPrinterSelectionInstance(string size, ref string printerinstance)
         {
-            if(GlobalVars.PrinterSelection != null)
+            if (GlobalVars.PrinterSelection != null)
             {
                 printerinstance = (from x in GlobalVars.PrinterSelection
                                    where x.PaperSize.Equals(size)
                                    select x.PrinterInstance).FirstOrDefault();
             }
-           
+
             return !String.IsNullOrEmpty(printerinstance);
+        }
+
+        private bool GetPrinterSelectionInstance(string size, ref PrinterSelectionModel printerinstance)
+        {
+            if (GlobalVars.PrinterSelection != null)
+            {
+                printerinstance = (from x in GlobalVars.PrinterSelection
+                                   where x.PaperSize.Equals(size)
+                                   select x).FirstOrDefault();
+            }
+
+            return printerinstance != null;
         }
 
         private void MoveFilesToNewPkgDirectory()
@@ -569,7 +596,7 @@ namespace PackageTool.ViewModel
             var source = GlobalVars.PackageDirectory;
             var target = _newpkgdir;
             var directories = Directory.GetDirectories(GlobalVars.PackageDirectory);
-            
+
             Directory.CreateDirectory(_newpkgdir);
             foreach (var directory in directories)
             {
@@ -617,7 +644,7 @@ namespace PackageTool.ViewModel
                 var kssname = file.Split('\\');
 
 
-                File.Move(file, Path.Combine(GlobalVars.PackageDirectory, _newpkgdir, "KSS", kssname[kssname.Length-1]));
+                File.Move(file, Path.Combine(GlobalVars.PackageDirectory, _newpkgdir, "KSS", kssname[kssname.Length - 1]));
 
 
 
@@ -628,7 +655,7 @@ namespace PackageTool.ViewModel
                 //    Type = "KSS"
                 //});
 
-                GlobalVars.KssName = kssname[kssname.Length-1];
+                GlobalVars.KssName = kssname[kssname.Length - 1];
             }
 
         }
@@ -637,15 +664,15 @@ namespace PackageTool.ViewModel
         {
             if (!_commonUtilities.CheckIfDirectoryExists(Path.Combine(GlobalVars.PackageDirectory, "Reports")))
             {
-                _commonUtilities.CreateDirectory(Path.Combine(GlobalVars.PackageDirectory,_newpkgdir, "Reports"));              
-            }            
+                _commonUtilities.CreateDirectory(Path.Combine(GlobalVars.PackageDirectory, _newpkgdir, "Reports"));
+            }
             MoveXsrFilesToPackageDirectory();
         }
 
         private void MoveXsrFilesToPackageDirectory()
         {
             var path = System.IO.Path.Combine(GlobalVars.LocalAppPackageToolFolder, "reports.txt");
-            var str = string.Concat(GlobalVars.JobNumber, "_", GlobalVars.JobCode,"_");
+            var str = string.Concat(GlobalVars.JobNumber, "_", GlobalVars.JobCode, "_");
             using (var reader = new StreamReader(path))
             {
                 while (!reader.EndOfStream)
@@ -666,15 +693,15 @@ namespace PackageTool.ViewModel
                     {
                         newreadLine = readLine;
                     }
-                    
+
 
                     if (_commonUtilities.CheckIfFileExists(Path.Combine(TeklaReportOutputDirectory, string.Concat(readLine, ".xsr"))))
                         File.Move(Path.Combine(TeklaReportOutputDirectory, string.Concat(readLine, ".xsr")), Path.Combine(GlobalVars.PackageDirectory, _newpkgdir, "Reports", string.Concat(str, newreadLine/*readLine*/, ".xsr")));
-                        // then add to HasReports Lists
+                    // then add to HasReports Lists
 
                     if (_commonUtilities.CheckIfFileExists(Path.Combine(TeklaReportOutputDirectory, string.Concat(readLine, ".csv"))))
                         File.Move(Path.Combine(TeklaReportOutputDirectory, string.Concat(readLine, ".csv")), Path.Combine(GlobalVars.PackageDirectory, _newpkgdir, "Reports", string.Concat(str, newreadLine/*readLine*/, ".csv")));
-                        // then add to HasReports Lists
+                    // then add to HasReports Lists
 
                     if (readLine != null && _commonUtilities.CheckIfFileExists(Path.Combine(TeklaReportOutputDirectory, readLine)))
                         File.Move(Path.Combine(TeklaReportOutputDirectory, readLine), Path.Combine(GlobalVars.PackageDirectory, _newpkgdir, "Reports", string.Concat(str, newreadLine)));
@@ -799,7 +826,7 @@ namespace PackageTool.ViewModel
                 Visibility = Visibility.Hidden;
             }
         }
-        
+
         private void ShowReportViewer()
         {
             Process.Start(GlobalVars.OutputTransmittalLetter);
@@ -838,7 +865,7 @@ namespace PackageTool.ViewModel
                 List<string> instances = new List<string>();
                 if (!CheckPrinterInstanceExists(ref instances))
                 {
-                    
+
                     bool terminateProcess = false;
                     GlobalVars.MainWindow.Dispatcher.BeginInvoke(new Action(() =>
                     {
@@ -857,13 +884,15 @@ namespace PackageTool.ViewModel
                                 (
                                    new PrinterSelectionModel
                                    {
-                                       PaperSize = size
+                                       PaperSize = size,
+                                       ManualScaling = false,
+                                       ScaleValue = "1.00"
                                    }
                                 );
                             }
                         }
-                                                
-                        if(view.vm.PrinterSelection.Count <= 0)
+
+                        if (view.vm.PrinterSelection.Count <= 0)
                         {
                             //GlobalVars.SuspendProcess = false;
                             SuspendProcess(false);
@@ -878,13 +907,13 @@ namespace PackageTool.ViewModel
                         }
                     }));
 
-                    
+
                     /// Suspends the Working thread
                     SuspendProcess(true);
 
                     if (terminateProcess)
                     { throw new ArgumentException("Cannot proceed packaging without setting Printer Instance Setting."); }
-                    
+
                 }
             }
         }

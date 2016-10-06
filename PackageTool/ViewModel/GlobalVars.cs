@@ -58,6 +58,9 @@ namespace PackageTool.ViewModel
         public static string LastPageDetails;
         public static string PrinterInstance;
         public static bool ApplyPrinterInstance;
+        public static bool ApplyScaling;
+        public static bool AutoScaling;
+        public static string ScaleValue;
         public static string Title1;
         public static string KssTemplateFilename;
 
@@ -107,5 +110,6 @@ namespace PackageTool.ViewModel
 
         public static string KssName { get; set; }
         public static bool UseKssTemplate;
+       
     }
 }

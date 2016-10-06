@@ -20,11 +20,10 @@ namespace PackageTool.ViewModel
     public class PrinterInstanceSelectionViewModel : ViewModelBase
     {
 
-
         public PrinterInstanceSelectionViewModel()
         {
             PrinterSelection = new ObservableCollection<PrinterSelectionModel>();
-            IsSaving = false;
+            IsSaving = false;            
         }
 
         private void UpdateViewState()
@@ -134,6 +133,8 @@ namespace PackageTool.ViewModel
             {
                 return new DelegateCommand(() =>
                 {
+                    if(!IsSaving && IsViewing)
+                    { GlobalVars.PrinterSelection = new Utilities().DeserializeBinFile<ObservableCollection<PrinterSelectionModel>>(GlobalVars.LocalPrinterInstanceBinFile); }
                     GlobalVars.SuspendProcess = false;
                 });
             }

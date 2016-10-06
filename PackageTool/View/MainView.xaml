@@ -9,9 +9,9 @@
         Width="516.441"
         Height="717.5"
         MinWidth="730"
-        MinHeight="740"
+        MinHeight="780"
         MaxWidth="730"
-        MaxHeight="740"
+        MaxHeight="780"
         Icon="../packagetool.ico"
         KeyDown="Window_KeyDown"
         Style="{StaticResource WindowTextStyle}"
@@ -104,6 +104,7 @@
                                 <RowDefinition Height="54" />
                                 <RowDefinition Height="40" />
                                 <RowDefinition Height="55" />
+                                <RowDefinition Height="50" />
                                 <RowDefinition Height="42" />
                                 <RowDefinition Height="45" />
                                 <RowDefinition Height="45" />
@@ -224,6 +225,7 @@
                                 <CheckBox Name="ChkApplyPrinterInstance"
                                           Margin="7,5,0,5"
                                           VerticalAlignment="Center"
+                                          ToolTip="Use this as global printer setting?"
                                           VerticalContentAlignment="Center"
                                           IsChecked="{Binding ApplyPrinterInstance}"
                                           IsTabStop="False">
@@ -249,13 +251,65 @@
 
 
                             </StackPanel>
-                            <Border Grid.Row="3"
+
+                            <TextBlock Grid.Row="3"
+                                       Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       
+                                       HorizontalAlignment="Left"
+                                       Text="Scaling:" />
+                            <StackPanel Grid.Row="3"
+                                        Grid.Column="1"
+                                        Grid.ColumnSpan="4"
+                                        Width="453"
+                                        Height="36"
+                                        Margin="7,9,0,10"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                <CheckBox Name="ChkApplyScaling"
+                                          VerticalAlignment="Center"
+                                          VerticalContentAlignment="Center"
+                                          ToolTip="Use this as global scaling setting?"
+                                          IsChecked="{Binding ApplyScaling}"
+                                          IsTabStop="False">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <RadioButton Name="RbAutoScaling"
+                                                     Margin="10,0,10,0"
+                                                     VerticalContentAlignment="Center"
+                                                     GroupName="scale"
+                                                     IsChecked="{Binding AutoScaling}"
+                                                     
+                                                     Content="Auto"/>
+                                        <RadioButton Name="RbManualScaling"
+                                                      Margin="0,0,10,0"
+                                                     GroupName="scale"  
+                                                     IsChecked="{Binding ManualScaling}"
+                                                     VerticalContentAlignment="Center"
+                                                     Content="Scale"/>
+                                        <TextBox
+                                     Grid.Column="1"
+                                     Grid.ColumnSpan="3"
+                                     Width="70"
+                                     HorizontalAlignment="Left"
+                                     VerticalAlignment="Top"
+                                            Name="TxtScaleValue"
+                                            KeyUp="TxtScaleValue_KeyUp"
+                                     Text="{Binding ScaleValue}" IsEnabled="{Binding IsChecked, ElementName=RbManualScaling}"/>
+
+                                    </StackPanel>
+                                    
+                                </CheckBox>
+
+                            </StackPanel>
+
+                            <Border Grid.Row="4"
                                     Grid.Column="0"
                                     Grid.ColumnSpan="7"
                                     Margin="0,5,15,19"
                                     BorderBrush="LightGray"
                                     BorderThickness="0,1,0,0" />
-                            <TextBlock Grid.Row="3"
+                            <TextBlock Grid.Row="4"
                                        Grid.Column="0"
                                        Grid.ColumnSpan="2"
                                        Height="28"
@@ -265,7 +319,7 @@
                                 <InlineUIContainer />
                             </TextBlock>
                             <!--  Report Titles  -->
-                            <TextBlock Grid.Row="4"
+                            <TextBlock Grid.Row="5"
                                        Grid.Column="0"
                                        Height="26"
                                        Margin="10,14,5,5"
@@ -273,7 +327,7 @@
                                        RenderTransformOrigin="0.474,-0.462"
                                        Text="Title 1:"
                                        TextWrapping="Wrap" />
-                            <TextBox Grid.Row="4"
+                            <TextBox Grid.Row="5"
                                      Grid.Column="1"
                                      Grid.ColumnSpan="3"
                                      Width="367"
@@ -283,29 +337,12 @@
                                      VerticalAlignment="Top"
                                      Text="{Binding Title1}"
                                      TextWrapping="Wrap" />
-                            <TextBlock Grid.Row="5"
+                            <TextBlock Grid.Row="6"
                                        Grid.Column="0"
                                        Height="20"
                                        Margin="10,13,5,12"
                                        VerticalAlignment="Center"
                                        Text="Title 2:"
-                                       TextWrapping="Wrap" />
-                            <TextBox Grid.Row="5"
-                                     Grid.Column="1"
-                                     Grid.ColumnSpan="3"
-                                     Width="366"
-                                     Height="27"
-                                     Margin="10,10,0,0"
-                                     HorizontalAlignment="Left"
-                                     VerticalAlignment="Top"
-                                     Text="{Binding Title2}"
-                                     TextWrapping="Wrap" />
-                            <TextBlock Grid.Row="6"
-                                       Grid.Column="0"
-                                       Height="20"
-                                       Margin="10,12,5,13"
-                                       VerticalAlignment="Center"
-                                       Text="Title 3:"
                                        TextWrapping="Wrap" />
                             <TextBox Grid.Row="6"
                                      Grid.Column="1"
@@ -315,22 +352,39 @@
                                      Margin="10,10,0,0"
                                      HorizontalAlignment="Left"
                                      VerticalAlignment="Top"
+                                     Text="{Binding Title2}"
+                                     TextWrapping="Wrap" />
+                            <TextBlock Grid.Row="7"
+                                       Grid.Column="0"
+                                       Height="20"
+                                       Margin="10,12,5,13"
+                                       VerticalAlignment="Center"
+                                       Text="Title 3:"
+                                       TextWrapping="Wrap" />
+                            <TextBox Grid.Row="7"
+                                     Grid.Column="1"
+                                     Grid.ColumnSpan="3"
+                                     Width="366"
+                                     Height="27"
+                                     Margin="10,10,0,0"
+                                     HorizontalAlignment="Left"
+                                     VerticalAlignment="Top"
                                      Text="{Binding Title3}"
                                      TextWrapping="Wrap" />
-                            <Border Grid.Row="7"
+                            <Border Grid.Row="8"
                                     Grid.Column="0"
                                     Grid.ColumnSpan="7"
                                     Margin="0,5,5,9"
                                     BorderBrush="LightGray"
                                     BorderThickness="0,1,0,0" />
-                            <TextBlock Grid.Row="8"
+                            <TextBlock Grid.Row="9"
                                        Grid.Column="0"
                                        Height="38"
                                        Margin="5,0,5,37"
                                        VerticalAlignment="Center"
                                        Text="KSS Name:"
                                        TextWrapping="Wrap" />
-                            <TextBox Grid.Row="8"
+                            <TextBox Grid.Row="9"
                                      Grid.Column="1"
                                      Grid.ColumnSpan="3"
                                      Width="366"
@@ -340,7 +394,7 @@
                                      VerticalAlignment="Center"
                                      Text="{Binding KssName}"
                                      TextWrapping="Wrap" />
-                            <StackPanel Grid.Row="8"
+                            <StackPanel Grid.Row="9"
                                         Grid.Column="1"
                                         Grid.ColumnSpan="4"
                                         Margin="20,30,0,0"
@@ -364,7 +418,7 @@
 
 
                             </StackPanel>
-                            <Border Grid.Row="9"
+                            <Border Grid.Row="10"
                                     Grid.Column="0"
                                     Grid.ColumnSpan="7"
                                     Margin="0,20,10,10"
@@ -382,7 +436,7 @@
                                      VerticalAlignment="Center"
                                      Text="{Binding KssName}"
                                      TextWrapping="Wrap" />-->
-                            <TextBlock Grid.Row="10"
+                            <TextBlock Grid.Row="11"
                                        Grid.Column="0"
                                        Width="55"
                                        Height="56"
@@ -392,7 +446,7 @@
                                        Text="Package directory:"
                                        TextWrapping="Wrap" />
                             <TextBox Name="TxtPackageDir"
-                                     Grid.Row="10"
+                                     Grid.Row="11"
                                      Grid.Column="1"
                                      Grid.ColumnSpan="3"
                                      Margin="10,5,5,38"
@@ -413,7 +467,7 @@
                             </TextBox>
 
                             <Button Name="BtnBrowsePackageDir"
-                                    Grid.Row="10"
+                                    Grid.Row="11"
                                     Grid.Column="4"
                                     Grid.ColumnSpan="2"
                                     Width="75"
@@ -441,11 +495,11 @@
                                 </Style>
                             </Grid.Resources>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="68*" />
+                                <ColumnDefinition Width="68" />
                                 <ColumnDefinition Width="197" />
-                                <ColumnDefinition Width="145*" />
-                                <ColumnDefinition Width="149*" />
-                                <ColumnDefinition Width="101*" />
+                                <ColumnDefinition Width="145" />
+                                <ColumnDefinition Width="149" />
+                                <ColumnDefinition Width="101" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="35" />

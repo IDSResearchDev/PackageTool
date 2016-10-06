@@ -11,5 +11,7 @@ namespace PackageTool.Model
     {
         public string PaperSize { get; set; }
         public string PrinterInstance { get; set; }
+        public bool ManualScaling { get; set; }
+        public string ScaleValue { get; set; }
     }
 }
