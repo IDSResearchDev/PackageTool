@@ -225,10 +225,10 @@
                                 <CheckBox Name="ChkApplyPrinterInstance"
                                           Margin="7,5,0,5"
                                           VerticalAlignment="Center"
-                                          ToolTip="Use this as global printer setting?"
                                           VerticalContentAlignment="Center"
                                           IsChecked="{Binding ApplyPrinterInstance}"
-                                          IsTabStop="False">
+                                          IsTabStop="False"
+                                          ToolTip="Use this as global printer setting?">
                                     <ComboBox Name="CmbPrinterInstance"
                                               ItemsSource="{Binding Source={StaticResource Printer}}"
                                               SelectedIndex="0"
@@ -254,9 +254,8 @@
 
                             <TextBlock Grid.Row="3"
                                        Grid.Column="0"
-                                       VerticalAlignment="Center"
-                                       
                                        HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
                                        Text="Scaling:" />
                             <StackPanel Grid.Row="3"
                                         Grid.Column="1"
@@ -270,34 +269,35 @@
                                 <CheckBox Name="ChkApplyScaling"
                                           VerticalAlignment="Center"
                                           VerticalContentAlignment="Center"
-                                          ToolTip="Use this as global scaling setting?"
                                           IsChecked="{Binding ApplyScaling}"
-                                          IsTabStop="False">
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                          IsTabStop="False"
+                                          ToolTip="Use this as global scaling setting?">
+                                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                                         <RadioButton Name="RbAutoScaling"
                                                      Margin="10,0,10,0"
                                                      VerticalContentAlignment="Center"
+                                                     Content="Auto"
                                                      GroupName="scale"
-                                                     IsChecked="{Binding AutoScaling}"
-                                                     
-                                                     Content="Auto"/>
+                                                     IsChecked="{Binding AutoScaling}" />
                                         <RadioButton Name="RbManualScaling"
-                                                      Margin="0,0,10,0"
-                                                     GroupName="scale"  
-                                                     IsChecked="{Binding ManualScaling}"
+                                                     Margin="0,0,10,0"
                                                      VerticalContentAlignment="Center"
-                                                     Content="Scale"/>
-                                        <TextBox
-                                     Grid.Column="1"
-                                     Grid.ColumnSpan="3"
-                                     Width="70"
-                                     HorizontalAlignment="Left"
-                                     VerticalAlignment="Top"
-                                            Name="TxtScaleValue"
-                                     Text="{Binding ScaleValue}" IsEnabled="{Binding IsChecked, ElementName=RbManualScaling}"/>
+                                                     Content="Scale"
+                                                     GroupName="scale"
+                                                     IsChecked="{Binding ManualScaling}" />
+                                        <TextBox Name="TxtScaleValue"
+                                                 Grid.Column="1"
+                                                 Grid.ColumnSpan="3"
+                                                 Width="70"
+                                                 HorizontalAlignment="Left"
+                                                 VerticalAlignment="Top"
+                                                 IsEnabled="{Binding IsChecked,
+                                                                     ElementName=RbManualScaling}"
+                                                 Text="{Binding ScaleValue}"
+                                                 TextChanged="ValidateNumeric_OnTxtChanged" />
 
                                     </StackPanel>
-                                    
+
                                 </CheckBox>
 
                             </StackPanel>
@@ -1005,16 +1005,16 @@
 
                 <Button Name="BtnSettings"
                         Margin="10,10,0,10"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            Command="{Binding ViewUpdateSetting}"
-                            Content="Settings"
-                            IsTabStop="False"
-                            Style="{x:Null}"
-                        ToolTip="Open Update Setting"
-                            TextBlock.Foreground="#FF0774B2" />
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Command="{Binding ViewUpdateSetting}"
+                        Content="Settings"
+                        IsTabStop="False"
+                        Style="{x:Null}"
+                        TextBlock.Foreground="#FF0774B2"
+                        ToolTip="Open Update Setting" />
 
                 <Button Name="BtnHelp"
                         Margin="10,10,0,10"

@@ -5,7 +5,7 @@
         xmlns:teklaHelper="clr-namespace:Rnd.TeklaStructure.Helper;assembly=Rnd.TeklaStructure.Helper"
         xmlns:viewModel="clr-namespace:PackageTool.ViewModel"
         Title="Printer Instance Selection Setting"
-        Width="560"
+        Width="580"
         Height="300"
         Icon="/PackageTool;component/packagetool.ico"
         ResizeMode="NoResize"
@@ -72,7 +72,7 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" SharedSizeGroup="Key" />
                                     <ColumnDefinition Width="*" SharedSizeGroup="KeyValue" />
-                                    <ColumnDefinition Width="Auto"  />
+                                    <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
@@ -89,16 +89,21 @@
                                           VerticalAlignment="Center"
                                           ItemsSource="{Binding Source={StaticResource Printer}}"
                                           SelectedValue="{Binding Path=PrinterInstance}" />
-                                <CheckBox Grid.Column="2"
-                                          Name="chkManualScale"
-                                           Margin="5,0,0,0"
+                                <CheckBox Name="chkManualScale"
+                                          Grid.Column="2"
+                                          Margin="5,0,0,0"
                                           VerticalAlignment="Center"
                                           Content="Manual Scale"
-                                          IsChecked="{Binding Path=ManualScaling}"/>
-                                <TextBox Grid.Column="3" Grid.ColumnSpan="3" Width="60"
+                                          IsChecked="{Binding Path=ManualScaling}" />
+                                <TextBox Grid.Column="3"
+                                         Grid.ColumnSpan="3"
+                                         Width="60"
                                          HorizontalAlignment="Left"
                                          VerticalAlignment="Top"
-                                         Text="{Binding Path=ScaleValue}" IsEnabled="{Binding IsChecked, ElementName=chkManualScale}"/>
+                                         IsEnabled="{Binding IsChecked,
+                                                             ElementName=chkManualScale}"
+                                         Text="{Binding Path=ScaleValue}"
+                                         TextChanged="ValidateNumeric_OnTxtChanged" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
