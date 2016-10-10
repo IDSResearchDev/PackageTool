@@ -26,7 +26,7 @@ namespace PackageTool.ViewModel
             CanValidate = false;
             if (GlobalVars.UpdateConfigModel != null)
             {
-                RNDServer = GlobalVars.UpdateConfigModel.RNDServer.Equals(string.Empty)
+                RNDServer = string.IsNullOrEmpty(GlobalVars.UpdateConfigModel.RNDServer)
                     ? PackageTool.Properties.Resources.ServerPath
                     : GlobalVars.UpdateConfigModel.RNDServer;
                 FTPServer = GlobalVars.UpdateConfigModel.FTPServer;
