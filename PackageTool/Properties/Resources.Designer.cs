@@ -96,5 +96,14 @@ namespace PackageTool.Properties {
                 return ResourceManager.GetString("ServerPath", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 21.1.
+        /// </summary>
+        public static string TeklaTargetVersion {
+            get {
+                return ResourceManager.GetString("TeklaTargetVersion", resourceCulture);
+            }
+        }
     }
 }

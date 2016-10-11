@@ -19,6 +19,7 @@ namespace PackageTool.ViewModel
 {
     public static class GlobalVars
     {
+        public static string TeklaTargetVersion = PackageTool.Properties.Resources.TeklaTargetVersion;
         public static string AppVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
         public static volatile bool SuspendProcess = false;
         public static string FirmFolder;
@@ -34,7 +35,7 @@ namespace PackageTool.ViewModel
         public static UpdateConfigurationModel UpdateConfigModel;
         public static string PackageDirectory = @"";
         public static string OutputDirectory = @"";
-        public static string LocalAppPackageToolFolder = Path.Combine(new Common.Utilities().LocalAppData, StringResource.PackageTool);
+        public static string LocalAppPackageToolFolder = Path.Combine(new Common.Utilities().LocalAppData, StringResource.PackageTool, TeklaTargetVersion);
         public static string LocalCfgBinFile = Path.Combine(LocalAppPackageToolFolder, "currentcfg.bin");
         public static string LocalPrinterInstanceBinFile = Path.Combine(LocalAppPackageToolFolder, "printerinstance.bin");
         public static string LocalUpdateConfigurationFile = Path.Combine(LocalAppPackageToolFolder, "updater.bin");

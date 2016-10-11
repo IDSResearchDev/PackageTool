@@ -164,7 +164,7 @@ namespace PackageTool.ViewModel
                 string updaterFilePath = GlobalVars.LocalUpdaterFile;//AppDomain.CurrentDomain.BaseDirectory + @"updater.ini";
                 string attribute = "url";
                 char delimiter = '=';
-                string updateTextFile = "package_tool_update.txt";
+                string updateTextFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name.ToLower()}_{GlobalVars.TeklaTargetVersion}_update.txt";
 
                 /// --- 
                 string protocol = "http://";

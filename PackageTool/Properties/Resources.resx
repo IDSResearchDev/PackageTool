@@ -124,4 +124,7 @@
   <data name="ServerPath" xml:space="preserve">
     <value>http://idsftpserver.com/rd/update/</value>
   </data>
+  <data name="TeklaTargetVersion" xml:space="preserve">
+    <value>21.1</value>
+  </data>
 </root>
