@@ -21,6 +21,7 @@ namespace Tekla.Technology.Akit.UserScript
             string modelDir;
             string dstvDir;
             string XS_Variable = System.Environment.GetEnvironmentVariable("XS_DIR");
+            
 
             try
             {
@@ -88,8 +89,17 @@ namespace Tekla.Technology.Akit.UserScript
 
         private static string GetDXFPath()
         {
-            var str = System.IO.File.ReadAllLines(System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "PackageTool", "DXFOutputdir.ini"));
+            string TS_Version = GetCurrentVersion();
+            var str = System.IO.File.ReadAllLines(System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "PackageTool", TS_Version, "DXFOutputdir.ini"));
             return str[0];
+        }
+
+        private static string GetCurrentVersion()
+        {
+            string currentVersion = TeklaStructuresInfo.GetCurrentProgramVersion();
+            var version = currentVersion.Split(' ');
+
+            return version[0];
         }
     }
 

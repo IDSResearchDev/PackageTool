@@ -222,6 +222,13 @@ namespace Tekla.Technology.Akit.UserScript
             _title3 = xsrtitlelList[2].Replace("XS_TITLE3=", "");
         }
 
+        private static string GetCurrentVersion()
+        {
+            string currentVersion = TeklaStructuresInfo.GetCurrentProgramVersion();
+            var version = currentVersion.Split(' ');
+
+            return version[0];
+        }
 
         private void Create()
         {
@@ -236,7 +243,8 @@ namespace Tekla.Technology.Akit.UserScript
             //namesList.Add("350   Bolt list");
             //namesList.Add("350   Assembly list BOM");
             int counter = 0;
-            var reportpath = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "PackageTool", "reports.txt");
+            string TS_Version = GetCurrentVersion();
+            var reportpath = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "PackageTool", TS_Version, "reports.txt");
             
 
 

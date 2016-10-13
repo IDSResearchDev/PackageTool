@@ -5,8 +5,8 @@ namespace Tekla.Technology.Akit.UserScript
     {
         public static void Run(Tekla.Technology.Akit.IScript akit)
         {
-            string TS_Version = "21.1";
-            string TS_BinaryDir = "";
+            string TS_Version = GetCurrentVersion();//"21.1";
+            //string TS_BinaryDir = "";
             //TeklaStructuresSettings.GetAdvancedOption("XSBIN", ref TSBinaryDir);
             string TS_Application = "PackageTool.exe";
             //string TS_Path = System.IO.Path.Combine(TS_BinaryDir, "applications\\tekla\\Model\\PackageTool\\");
@@ -32,6 +32,14 @@ namespace Tekla.Technology.Akit.UserScript
 
             Process.Start();
             Process.Close();
+        }
+
+        private static string GetCurrentVersion()
+        {
+            string currentVersion = TeklaStructuresInfo.GetCurrentProgramVersion();
+            var version = currentVersion.Split(' ');
+
+            return version[0];
         }
     }
 }
