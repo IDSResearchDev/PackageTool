@@ -1370,9 +1370,11 @@ namespace PackageTool.ViewModel
         private bool CheckLatestUpdate()
         {
             bool value = false;
+            CheckForUpdate = "Check for Update";
             if (File.Exists(GlobalVars.LocalUpdaterFile))
             {
-                var aiuFile = "package_tool_update.aiu";
+                //$"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name.ToLower()}_{GlobalVars.TeklaTargetVersion}_update.txt";
+                var aiuFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name.ToLower()}_{GlobalVars.TeklaTargetVersion}_update.aiu";
                 var util = new Rnd.Common.Utilities();
                 var updatePath = Path.Combine(util.GetTextFileValue(GlobalVars.LocalUpdaterFile, '=', "DownloadsFolder"), aiuFile);
                 if (File.Exists(updatePath))
@@ -1382,8 +1384,7 @@ namespace PackageTool.ViewModel
                     if (VersionComparer.IsUptoDate(updateVersion, GlobalVars.AppVersion))
                     {
                         value = true;
-                        GetUpdate = string.Empty;
-                        CheckForUpdate = "Check for Update";
+                        GetUpdate = string.Empty;                        
                     }
                     else
                     {
@@ -1393,7 +1394,7 @@ namespace PackageTool.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("Model Launcher update file (" + aiuFile + ") doesn't exist.", "Update not found", MessageBoxButton.OK, MessageBoxImage.Information);
+                    //MessageBox.Show("Model Launcher update file (" + aiuFile + ") doesn't exist.", "Update not found", MessageBoxButton.OK, MessageBoxImage.Information);
                     value = true;
                 }
             }
