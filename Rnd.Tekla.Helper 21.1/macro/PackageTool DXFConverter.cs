@@ -10,10 +10,11 @@ namespace Tekla.Technology.Akit.UserScript
     public class Script
     {
         /**** Modify these strings to suit local environment and user preferences ****/
-        private static string defFile = "tekla_dstv2dxf_imperial.def";
+        private static string defFile = "tekla_dstv2dxf_metric.def";
         private static string exeFile = "tekla_dstv2dxf.exe";
         private static string dxfOutputFolder = "NC_dxf";
         /*****************************************************************************/
+
 
 
         public static void Run(Tekla.Technology.Akit.IScript akit)
@@ -21,42 +22,65 @@ namespace Tekla.Technology.Akit.UserScript
             string modelDir;
             string dstvDir;
             string XS_Variable = System.Environment.GetEnvironmentVariable("XS_DIR");
-            
+            string XS_IsImperial = "";
+            string XS_Fabricator = "";
+            Tekla.Structures.TeklaStructuresSettings.GetAdvancedOption("XS_IMPERIAL", ref XS_IsImperial);
+            Tekla.Structures.TeklaStructuresSettings.GetAdvancedOption("XS_PROJECT", ref XS_Fabricator);
 
             try
             {
                 Model Model = new Model();
 
+                ProjectInfo projInfo = Model.GetProjectInfo();
+                var fab_name = "";
+                projInfo.GetUserProperty("FAB_NAME", ref fab_name);
+
+
                 /** Get model directory **/
                 modelDir = new System.IO.DirectoryInfo("./").FullName;
 
+                if (XS_IsImperial == "TRUE")
+                {
+                    defFile = "tekla_dstv2dxf_imperial.def";
+                }
+
+                if ((XS_IsImperial == "TRUE") && ((_GetFab(XS_Fabricator) == "Basden Steel Corp") || (fab_name.ToLower().Contains("basden"))))
+                {
+                    defFile = "tekla_dstv2dxf_imp_BasdenSteelCorp.def";
+                }
+
+                if ((XS_IsImperial == "TRUE") && ((_GetFab(XS_Fabricator) == "LnM") || (fab_name.ToLower().Contains("lnm"))))
+                {
+                    defFile = "tekla_dstv2dxf_imperial_LnM.def";
+                }
+
+
                 /** Check for existence of dstv2dxf.exe **/
                 if (System.IO.File.Exists(@XS_Variable + @"\nt\dstv2dxf\" + defFile))
+                {
                     dstvDir = @XS_Variable + @"\nt\dstv2dxf\";
+                }
+
                 else
                 {
-                    System.Windows.Forms.MessageBox.Show("The conversion definition file " + defFile +
-                                                         " and/or the dstv2dxf directory could not be found.\n\npleases modify the macro script to point to the correct directory.");
+                    System.Windows.Forms.MessageBox.Show("The conversion definition file " + defFile + " and/or the dstv2dxf directory could not be found.\n\npleases modify the macro script to point to the correct directory.");
                     return;
                 }
 
                 /** Copy dstv2dxf.exe to the model folder **/
                 if (!System.IO.File.Exists(@modelDir + exeFile))
-                    new System.IO.FileInfo(@dstvDir + "tekla_dstv2dxf.exe").CopyTo(@modelDir + "tekla_dstv2dxf.exe",
-                        true);
+                    new System.IO.FileInfo(@dstvDir + "tekla_dstv2dxf.exe").CopyTo(@modelDir + "tekla_dstv2dxf.exe", true);
 
                 /** Generate the "model local" version of the def file **/
                 System.IO.StreamReader sr = new System.IO.StreamReader(@dstvDir + defFile, System.Text.Encoding.Default);
-                System.IO.StreamWriter sw = new System.IO.StreamWriter(@modelDir + defFile, false,
-                    System.Text.Encoding.Default);
+                System.IO.StreamWriter sw = new System.IO.StreamWriter(@modelDir + defFile, false, System.Text.Encoding.Default);
                 string line = " ";
                 while ((line = sr.ReadLine()) != null)
                 {
                     if (line.Trim().IndexOf("INPUT_FILE_DIR") >= 0)
                         sw.WriteLine("INPUT_FILE_DIR=");
                     else if (line.Trim().IndexOf("OUTPUT_FILE_DIR") >= 0)
-                    {
-                        //sw.WriteLine("OUTPUT_FILE_DIR="+@modelDir+dxfOutputFolder);
+                    {	//sw.WriteLine("OUTPUT_FILE_DIR="+@modelDir+dxfOutputFolder);
                         string path = GetDXFPath();
                         sw.WriteLine(path);
                     }
@@ -80,7 +104,9 @@ namespace Tekla.Technology.Akit.UserScript
                 NCDXFConv.Start();
                 NCDXFConv.WaitForExit();
                 NCDXFConv.Close();
+
             }
+            /** This little section will report any errors that may happen during run-time, and even tell you what line of code the error happened at **/
             catch (System.Exception e)
             {
                 System.Windows.Forms.MessageBox.Show("Problem runing process\n" + e.Message + "\n" + e.StackTrace);
@@ -101,6 +127,12 @@ namespace Tekla.Technology.Akit.UserScript
 
             return version[0];
         }
-    }
 
+        private static string _GetFab(string strXS_Fabricator)
+        {
+            var str = strXS_Fabricator.Split('\\');
+
+            return str[str.Length - 1];
+        }
+    }
 }
