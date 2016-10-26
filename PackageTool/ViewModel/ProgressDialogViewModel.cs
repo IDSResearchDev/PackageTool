@@ -290,9 +290,10 @@ namespace PackageTool.ViewModel
             }
             finally
             {
+                MoveFilesToNewPkgDirectory();
                 if (!hasError)
                 {
-                    MoveFilesToNewPkgDirectory();
+                    //MoveFilesToNewPkgDirectory();
                     ShowControls(true);
                 }
                 else
@@ -366,7 +367,7 @@ namespace PackageTool.ViewModel
                     {
                         i++;
                         var printerinstance = GlobalVars.ApplyPrinterInstance ? GlobalVars.PrinterInstance : string.Empty;
-                        
+
 
                         var autoScaling = GlobalVars.AutoScaling;
                         var scaleValue = GlobalVars.ScaleValue;
@@ -378,25 +379,26 @@ namespace PackageTool.ViewModel
                             this.GetPrinterSelectionInstance(size, ref printerinstance);
                         }
 
-                        if(!GlobalVars.ApplyScaling)
+                        if (!GlobalVars.ApplyScaling)
                         {
                             PrinterSelectionModel scaling = null;
                             this.GetPrinterSelectionInstance(size, ref scaling);
                             autoScaling = !scaling.ManualScaling;
                             scaleValue = scaling.ScaleValue.Trim();
                         }
+                        
+                        var filenamewithoutrevision = drawings.GetFilenamewithoutRevision(drw);
 
                         //drawings.Export(_pdfdir, ExportType.PDF, printerinstance, drw);
                         drawings.ExportPDF(_pdfdir, printerinstance, autoScaling, scaleValue, drw);
 
                         drwtype = drawings.Type(drw);
+                        
 
                         GlobalVars.TransmittalDatas.Add(new TransmittalData()
                         {
 
-                            SheetName = ((drwtype.Equals("A")) || (drwtype.Equals("W")))
-                                            ? drawings.GetMark(drw)
-                                            : drawings.GetName(drw),
+                            SheetName = filenamewithoutrevision,
                             Revision = drawings.RevisionMark(drw),
                             Type = ExportType.PDF.ToString()
                         });
@@ -419,11 +421,10 @@ namespace PackageTool.ViewModel
                     {
                         i++;
                         drwtype = drawings.Type(drw);
+                        var filenamewithoutrevision = drawings.GetFilenamewithoutRevision(drw);
                         GlobalVars.TransmittalDatas.Add(new TransmittalData()
                         {
-                            SheetName = ((drwtype.Equals("A")) || (drwtype.Equals("W")))
-                                            ? drawings.GetMark(drw)
-                                            : drawings.GetName(drw),
+                            SheetName = filenamewithoutrevision,
                             Revision = drawings.RevisionMark(drw),
                             Type = ExportType.DWG.ToString()
                         });
@@ -433,6 +434,8 @@ namespace PackageTool.ViewModel
                     CurrentProgress = 100;
                 }
 
+                //try
+                //{
                 if (GlobalVars.cfgModel.NC)
                 {
                     CurrentProgress = 0;
@@ -460,6 +463,13 @@ namespace PackageTool.ViewModel
 
                     CurrentProgress = 100;
                 }
+
+                //}
+                //catch (Exception err)
+                //{
+
+                //    MessageBox.Show(err.Message);
+                //}
 
                 if (GlobalVars.cfgModel.DXF)
                 {
@@ -554,6 +564,7 @@ namespace PackageTool.ViewModel
             catch (Exception ex)
             {
                 throw ex;
+
             }
         }
 

@@ -147,12 +147,14 @@ namespace Rnd.TeklaStructure.Helper
             return result;
         }
 
+        
         public string GetFilename(object drawing)
         {
             var drw = (Drawing)drawing;
+            _drawingType = GetDrawingType(type: Type(drw));
             var format = _filenameformat.Replace(@"%%", ",").Replace(".", "");
-
             string[] x = format.Split(',');
+            
 
             //string DRAWING_MARK = "DRAWING_MARK";
 
@@ -164,6 +166,8 @@ namespace Rnd.TeklaStructure.Helper
 
             string DRAWING_TITLE = "DRAWING_TITLE";
 
+            string ASSEMBLY_SERIAL_NUMBER = "TPL:ASSEMBLYASSEMBLY_SERIAL_NUMBER";
+
 
             for (int i = 0; i < x.Count(); i++)
             {
@@ -171,9 +175,15 @@ namespace Rnd.TeklaStructure.Helper
                     x[i] =
                         x[i].Replace(DRAWING_NAME, drw.Mark)
                             .Replace("-", "")
+                            .Replace(".", "")
+                            .Replace("[", "")
+                            .Replace("]", "")
                             .Replace(DRAWING_TITLE, drw.Name)
                             .Replace("%", "")
                             .Trim();
+
+                else if (x[i].Contains(ASSEMBLY_SERIAL_NUMBER))
+                    x[i] = x[i].Replace(ASSEMBLY_SERIAL_NUMBER, drw.Mark.Where(digit => char.IsDigit(digit)).ToArray().ToString());
 
                 else if (x[i].Contains(REVISION_MARK))
                     x[i] = x[i].Replace(REVISION_MARK, RevisionMark(drawing));
@@ -191,6 +201,50 @@ namespace Rnd.TeklaStructure.Helper
             return string.Join("", x).Replace("%", string.Empty);
 
         }
+
+        public string GetFilenamewithoutRevision(object drawing)
+        {
+            var drw = (Drawing)drawing;
+            _drawingType = GetDrawingType(Type(drw));
+            var format = _filenameformat.Replace(@"%%", ",").Replace(".", "")
+                                        .Replace("REVISION_MARK",string.Empty)
+                                        .Replace("DRAWING_REVISION?", string.Empty);
+
+            string[] x = format.Split(',');
+            
+            string DRAWING_NAME = "DRAWING_NAME";
+
+            string DRAWING_TITLE = "DRAWING_TITLE";
+
+            string ASSEMBLY_SERIAL_NUMBER = "TPL:ASSEMBLYASSEMBLY_SERIAL_NUMBER";
+
+            var str = new string (drw.Mark.Where(digit => char.IsDigit(digit)).ToArray());
+
+            for (int i = 0; i < x.Count(); i++)
+            {
+                if (x[i].Contains(DRAWING_NAME))
+                    x[i] =
+                        x[i].Replace(DRAWING_NAME, drw.Mark)
+                            .Replace("-", "")
+                            .Replace(".", "")
+                            .Replace("[", "")
+                            .Replace("]", "")
+                            .Replace(DRAWING_TITLE, drw.Name)
+                            .Replace("%", "")
+                            .Trim();
+
+                else if (x[i].Contains(ASSEMBLY_SERIAL_NUMBER))
+                    x[i] = x[i].Replace(ASSEMBLY_SERIAL_NUMBER, str);
+                
+                else if (x[i].Contains(DRAWING_TITLE))
+                    x[i] = x[i].Replace(DRAWING_TITLE, drw.Name);
+            }
+
+            
+            return string.Join("", x).Replace("%", string.Empty).Replace("_", string.Empty);
+            
+        }
+
 
 
         //public string Size(Drawing drawing)
