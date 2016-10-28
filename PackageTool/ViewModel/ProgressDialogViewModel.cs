@@ -387,14 +387,14 @@ namespace PackageTool.ViewModel
                             scaleValue = scaling.ScaleValue.Trim();
                         }
                         
-                        var filenamewithoutrevision = drawings.GetFilenamewithoutRevision(drw);
+                        
 
                         //drawings.Export(_pdfdir, ExportType.PDF, printerinstance, drw);
                         drawings.ExportPDF(_pdfdir, printerinstance, autoScaling, scaleValue, drw);
 
                         drwtype = drawings.Type(drw);
-                        
 
+                        var filenamewithoutrevision = drawings.GetFilenamewithoutRevision(drw);
                         GlobalVars.TransmittalDatas.Add(new TransmittalData()
                         {
 
