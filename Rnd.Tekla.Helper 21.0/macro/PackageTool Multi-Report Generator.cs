@@ -132,7 +132,7 @@ namespace Tekla.Technology.Akit.UserScript
         private string _title1;
         private string _title2;
         private string _title3;
-        
+
 
         private void GetProjectProperties()
         {
@@ -205,9 +205,10 @@ namespace Tekla.Technology.Akit.UserScript
         private void xsrtitle()
         {
             xsrtitlelList = new List<string>();
-           
-            var xsrtitlepath = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "PackageTool", "xsrtitle.txt");
-            
+
+            string TS_Version = GetCurrentVersion();
+            var xsrtitlepath = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "PackageTool", TS_Version, "xsrtitle.txt");
+
             using (var reader = new System.IO.StreamReader(xsrtitlepath))
             {
                 while (!reader.EndOfStream)
@@ -222,6 +223,13 @@ namespace Tekla.Technology.Akit.UserScript
             _title3 = xsrtitlelList[2].Replace("XS_TITLE3=", "");
         }
 
+        private static string GetCurrentVersion()
+        {
+            string currentVersion = TeklaStructuresInfo.GetCurrentProgramVersion();
+            var version = currentVersion.Split(' ');
+
+            return version[0];
+        }
 
         private void Create()
         {
@@ -236,8 +244,9 @@ namespace Tekla.Technology.Akit.UserScript
             //namesList.Add("350   Bolt list");
             //namesList.Add("350   Assembly list BOM");
             int counter = 0;
-            var reportpath = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "PackageTool", "reports.txt");
-            
+            string TS_Version = GetCurrentVersion();
+            var reportpath = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "PackageTool", TS_Version, "reports.txt");
+
 
 
             using (var reader = new System.IO.StreamReader(reportpath))
@@ -270,7 +279,7 @@ namespace Tekla.Technology.Akit.UserScript
                 //Script.OpenReportDialog(bIsDisplayReportsSelected, bIsAssociatedApplicationSelected, this.textBoxTitle1.Text, this.textBoxTitle2.Text, this.textBoxTitle3.Text);
                 //doesnt show UI multi-report generator
                 Script.OpenReportDialog(bIsDisplayReportsSelected, bIsAssociatedApplicationSelected, _title1, _title2, _title3);
-                
+
                 foreach (var item in namesList)
                 {
 
@@ -975,7 +984,7 @@ namespace Tekla.Technology.Akit.UserScript
             return bResult;
         }
     }
-        #endregion
+    #endregion
     #endregion
 
 }

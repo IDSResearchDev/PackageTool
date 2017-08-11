@@ -127,28 +127,6 @@ namespace Rnd.TeklaStructure.Helper
             }
         }
 
-
-
-        public void Export(string outputdir, ExportType exportType, string printerinstance, object drawing = null)
-        {
-            _exportType = exportType;
-            _outputdir = outputdir;
-
-            if (_drawingHandler.GetConnectionStatus())
-            {
-                switch (exportType)
-                {
-                    case ExportType.PDF:
-                        ConvertPDF((Drawing)drawing, printerinstance);
-                        break;
-                    case ExportType.DWG:
-                        ConvertDWG();
-                        break;
-                }
-            }
-
-        }
-
         public string GetMark(object drawing)
         {
             var drw = (Drawing)drawing;
@@ -169,12 +147,14 @@ namespace Rnd.TeklaStructure.Helper
             return result;
         }
 
+        
         public string GetFilename(object drawing)
         {
             var drw = (Drawing)drawing;
+            _drawingType = GetDrawingType(type: Type(drw));
             var format = _filenameformat.Replace(@"%%", ",").Replace(".", "");
-
             string[] x = format.Split(',');
+            
 
             //string DRAWING_MARK = "DRAWING_MARK";
 
@@ -186,6 +166,8 @@ namespace Rnd.TeklaStructure.Helper
 
             string DRAWING_TITLE = "DRAWING_TITLE";
 
+            string ASSEMBLY_SERIAL_NUMBER = "TPL:ASSEMBLYASSEMBLY_SERIAL_NUMBER";
+
 
             for (int i = 0; i < x.Count(); i++)
             {
@@ -193,9 +175,15 @@ namespace Rnd.TeklaStructure.Helper
                     x[i] =
                         x[i].Replace(DRAWING_NAME, drw.Mark)
                             .Replace("-", "")
+                            .Replace(".", "")
+                            .Replace("[", "")
+                            .Replace("]", "")
                             .Replace(DRAWING_TITLE, drw.Name)
                             .Replace("%", "")
                             .Trim();
+
+                else if (x[i].Contains(ASSEMBLY_SERIAL_NUMBER))
+                    x[i] = x[i].Replace(ASSEMBLY_SERIAL_NUMBER, drw.Mark.Where(digit => char.IsDigit(digit)).ToArray().ToString());
 
                 else if (x[i].Contains(REVISION_MARK))
                     x[i] = x[i].Replace(REVISION_MARK, RevisionMark(drawing));
@@ -213,6 +201,50 @@ namespace Rnd.TeklaStructure.Helper
             return string.Join("", x).Replace("%", string.Empty);
 
         }
+
+        public string GetFilenamewithoutRevision(object drawing)
+        {
+            var drw = (Drawing)drawing;
+            _drawingType = GetDrawingType(Type(drw));
+            var format = _filenameformat.Replace(@"%%", ",").Replace(".", "")
+                                        .Replace("REVISION_MARK",string.Empty)
+                                        .Replace("DRAWING_REVISION?", string.Empty);
+
+            string[] x = format.Split(',');
+            
+            string DRAWING_NAME = "DRAWING_NAME";
+
+            string DRAWING_TITLE = "DRAWING_TITLE";
+
+            string ASSEMBLY_SERIAL_NUMBER = "TPL:ASSEMBLYASSEMBLY_SERIAL_NUMBER";
+
+            var str = new string (drw.Mark.Where(digit => char.IsDigit(digit)).ToArray());
+
+            for (int i = 0; i < x.Count(); i++)
+            {
+                if (x[i].Contains(DRAWING_NAME))
+                    x[i] =
+                        x[i].Replace(DRAWING_NAME, drw.Mark)
+                            .Replace("-", "")
+                            .Replace(".", "")
+                            .Replace("[", "")
+                            .Replace("]", "")
+                            .Replace(DRAWING_TITLE, drw.Name)
+                            .Replace("%", "")
+                            .Trim();
+
+                else if (x[i].Contains(ASSEMBLY_SERIAL_NUMBER))
+                    x[i] = x[i].Replace(ASSEMBLY_SERIAL_NUMBER, str);
+                
+                else if (x[i].Contains(DRAWING_TITLE))
+                    x[i] = x[i].Replace(DRAWING_TITLE, drw.Name);
+            }
+
+            
+            return string.Join("", x).Replace("%", string.Empty).Replace("_", string.Empty);
+            
+        }
+
 
 
         //public string Size(Drawing drawing)
@@ -368,6 +400,55 @@ namespace Rnd.TeklaStructure.Helper
             }
             return ".pdf";
         }
+       
+        //private string _dxfmacro = @"C:\TeklaStructures\21.0\Environments\usimp\us_roles\steel\macros\modeling\";
+        public void ConvertDXF()
+        {
+            Operation.RunMacro(@"..\modeling\PackageTool DXFConverter.cs");
+        }
+
+
+        public void ExportPDF(string outputdir, string printerinstance, bool autoScaling, string scaleValue, object drawing = null)
+        {
+            _exportType = ExportType.PDF;
+            _outputdir = outputdir;
+
+            var _scaleValue = 1.00;
+            Double.TryParse(scaleValue, out _scaleValue);
+
+            if (_drawingHandler.GetConnectionStatus())
+            {
+                ConvertPDF((Drawing)drawing, printerinstance, autoScaling, _scaleValue);
+            }
+
+        }
+
+        public void ConvertPDF(Drawing drawing, string printerinstance, bool autoScaling, double scaleValue)
+        {
+            CatalogHandler CatalogHandler = new CatalogHandler();
+
+            if (CatalogHandler.GetConnectionStatus())
+            {
+                PrintAttributes printAttributes = new PrintAttributes();
+                printAttributes.PrinterInstance = string.IsNullOrEmpty(printerinstance) ? Size(drawing) : printerinstance;
+                printAttributes.ScalingType = autoScaling ? DotPrintScalingType.Auto : DotPrintScalingType.Scale;
+                printAttributes.Scale = scaleValue;
+
+                _drawingHandler.PrintDrawing(drawing, printAttributes);
+            }
+        }
+
+        public void ExportDWG(string outputdir)
+        {
+            _exportType = ExportType.DWG;
+            _outputdir = outputdir;
+
+            if (_drawingHandler.GetConnectionStatus())
+            {
+                ConvertDWG();
+            }
+
+        }
 
         public void ConvertDWG()
         {
@@ -385,31 +466,6 @@ namespace Rnd.TeklaStructure.Helper
             }
 
         }
-        //private string _dxfmacro = @"C:\TeklaStructures\21.0\Environments\usimp\us_roles\steel\macros\modeling\";
-        public void ConvertDXF()
-        {
-            Operation.RunMacro(@"..\modeling\PackageTool DXFConverter.cs");
-        }
-
-        public void ConvertPDF(Drawing drawing, string printerinstance)
-        {
-            CatalogHandler CatalogHandler = new CatalogHandler();
-            //string instance = string.IsNullOrEmpty(printerinstance) ? Size(drawing) : printerinstance;
-            //var instances = new Utilities().PrinterInstance();
-
-            //if (!instances.Contains(instance))
-            //    throw new Exception("Create a " + instance + " first in Printer Instances.");
-            
-            if (CatalogHandler.GetConnectionStatus())
-            {                
-                PrintAttributes printAttributes = new PrintAttributes();
-                printAttributes.PrinterInstance = string.IsNullOrEmpty(printerinstance) ? Size(drawing) : printerinstance;
-                printAttributes.ScalingType = DotPrintScalingType.Scale;
-
-                _drawingHandler.PrintDrawing(drawing, printAttributes);
-            }
-        }
-
 
         public void CreateNCFiles(string dxfdir, bool IsAngles, bool IsPlates, bool IsProfiles)
         {
@@ -599,6 +655,47 @@ namespace Rnd.TeklaStructure.Helper
             }
         }
 
+        #endregion
+
+        #region Unused methods
+        public void Export(string outputdir, ExportType exportType, string printerinstance, object drawing = null)
+        {
+            _exportType = exportType;
+            _outputdir = outputdir;
+
+            if (_drawingHandler.GetConnectionStatus())
+            {
+                switch (exportType)
+                {
+                    case ExportType.PDF:
+                        ConvertPDF((Drawing)drawing, printerinstance);
+                        break;
+                    case ExportType.DWG:
+                        ConvertDWG();
+                        break;
+                }
+            }
+
+        }        
+
+        public void ConvertPDF(Drawing drawing, string printerinstance)
+        {
+            CatalogHandler CatalogHandler = new CatalogHandler();
+            //string instance = string.IsNullOrEmpty(printerinstance) ? Size(drawing) : printerinstance;
+            //var instances = new Utilities().PrinterInstance();
+
+            //if (!instances.Contains(instance))
+            //    throw new Exception("Create a " + instance + " first in Printer Instances.");
+
+            if (CatalogHandler.GetConnectionStatus())
+            {
+                PrintAttributes printAttributes = new PrintAttributes();
+                printAttributes.PrinterInstance = string.IsNullOrEmpty(printerinstance) ? Size(drawing) : printerinstance;
+                printAttributes.ScalingType = DotPrintScalingType.Scale;
+
+                _drawingHandler.PrintDrawing(drawing, printAttributes);
+            }
+        }
         #endregion
     }
 }

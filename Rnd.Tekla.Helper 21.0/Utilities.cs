@@ -206,17 +206,24 @@ namespace Rnd.TeklaStructure.Helper
         public List<string> GetKSSTemplates()
         {
             List<string> fileDirectories = new List<string>();
-            List<string> kssFiles = new List<string>();
-            //AddPaths(fileDirectories, "XS_TEMPLATE_DIRECTORY");
-            fileDirectories.Add(new Tekla.Structures.Model.Model().GetInfo().ModelPath);
-            AddPaths(fileDirectories, "XS_PROJECT");
-            //AddPaths(fileDirectories, "XS_FIRM");
-            //AddPaths(fileDirectories, "XS_TEMPLATE_DIRECTORY_SYSTEM");
-            //AddPaths(fileDirectories, "XS_SYSTEM");
-            string[] strArray = GetMultiDirectoryList(fileDirectories, "kss.rpt");
-            foreach (string str in strArray)
+            List<string> kssFiles = new List<string>(); //;
+
+            GetConncectionStatus();
+            var path = new Tekla.Structures.Model.Model().GetInfo().ModelPath;
+
+            if (!string.IsNullOrEmpty(path))
             {
-                kssFiles.Add(str + ".kss");
+                //AddPaths(fileDirectories, "XS_TEMPLATE_DIRECTORY");
+                fileDirectories.Add(path);
+                AddPaths(fileDirectories, "XS_PROJECT");
+                //AddPaths(fileDirectories, "XS_FIRM");
+                //AddPaths(fileDirectories, "XS_TEMPLATE_DIRECTORY_SYSTEM");
+                //AddPaths(fileDirectories, "XS_SYSTEM");
+                string[] strArray = GetMultiDirectoryList(fileDirectories, "kss.rpt");
+                foreach (string str in strArray)
+                {
+                    kssFiles.Add(str + ".kss");
+                }
             }
 
             return kssFiles;
