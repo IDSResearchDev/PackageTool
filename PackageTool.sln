@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Unit Test", "3 - Unit T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rnd.DataAccess", "Rnd.DataAccess\Rnd.DataAccess.csproj", "{0D1874F6-A09A-4FC4-A02C-1ED023A7E63D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rnd.TeklaStructure.Helper", "Rnd.Tekla.Helper 21.1\Rnd.TeklaStructure.Helper.csproj", "{2FB766B1-075B-4E1B-AF77-1B1AB30891D6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rnd.TeklaStructure.Helper", "Rnd.Tekla.Helper 20.0\Rnd.TeklaStructure.Helper.csproj", "{2FB766B1-075B-4E1B-AF77-1B1AB30891D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
