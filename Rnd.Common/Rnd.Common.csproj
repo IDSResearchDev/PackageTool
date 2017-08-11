@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Activator.cs" />
     <Compile Include="Resources\ErrorCollection.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

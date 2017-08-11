@@ -87,6 +87,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\BoolToVisibilitConverter.cs" />
+    <Compile Include="MachineValidator.cs" />
     <Compile Include="Model\CfgModel.cs" />
     <Compile Include="Model\ITransmittal.cs" />
     <Compile Include="Model\PrinterSelectionModel.cs" />

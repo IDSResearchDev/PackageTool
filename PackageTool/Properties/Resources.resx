@@ -127,4 +127,7 @@
   <data name="TeklaTargetVersion" xml:space="preserve">
     <value>21.1</value>
   </data>
+  <data name="ActivationUrl" xml:space="preserve">
+    <value>http://webservice2.intdesignservices.com/</value>
+  </data>
 </root>

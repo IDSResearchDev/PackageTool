@@ -61,6 +61,15 @@ namespace PackageTool.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to http://webservice2.intdesignservices.com/.
+        /// </summary>
+        public static string ActivationUrl {
+            get {
+                return ResourceManager.GetString("ActivationUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt; 
         ///&lt;recentdata&gt;
         ///  &lt;!-- Export tab --&gt;

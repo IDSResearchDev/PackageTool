@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
@@ -453,6 +454,16 @@ namespace Rnd.Common
                 }                
             }
             return value;
+        }
+
+        public string GetPhysicalAddress()
+        {
+            var networks = NetworkInterface.GetAllNetworkInterfaces();
+            var activeNetworks = networks.Where(ni => ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet
+                                                    || ni.NetworkInterfaceType == NetworkInterfaceType.Wireless80211);
+            //var nonVirtual = activeNetworks.Where(s => /*!s.Description.Contains("Virtual") &&*/ !s.Name.Contains("vEthernet"));
+            return activeNetworks.First().GetPhysicalAddress().ToString();
+
         }
     }
 }

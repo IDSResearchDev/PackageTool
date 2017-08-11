@@ -23,34 +23,44 @@ namespace PackageTool
         {
             if (e.Exception.InnerException != null)
             {
+                this.CheckApplicationException(e.Exception.InnerException.InnerException.Message);
                 if (e.Exception.InnerException.Message == "Transmittal letter is open.")
                 {
                     MessageBox.Show(string.Concat("Please close related documents before creating this model.",
                                                   Environment.NewLine, "Path: ", GlobalVars.OutputTransmittalLetter),
                                                   "Transmittal letter is open", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+                
             }
             else
             {
-                MessageBox.Show(e.Exception.Message, StringResource.ExceptionCaught, MessageBoxButton.OK, MessageBoxImage.Error);
-
-                this.CheckApplicationException(e.Exception.Message);
-                new Rnd.TeklaStructure.Helper.Utilities().GetConncectionStatus();
+                if(!this.CheckApplicationException(e.Exception.Message))
+                {
+                    MessageBox.Show(e.Exception.Message, StringResource.ExceptionCaught, MessageBoxButton.OK, MessageBoxImage.Error);
+                    new Rnd.TeklaStructure.Helper.Utilities().GetConncectionStatus();
+                }
             }
 
             e.Handled = true;
         }
 
-        private void CheckApplicationException(string message)
+        private bool CheckApplicationException(string message)
         {
-            if (message == ErrorCollection.NoOpenModel || message == ErrorCollection.TeklaNotRunning)
+            bool isClosing = false;
+            if (isClosing = (message == ErrorCollection.NoOpenModel || message == ErrorCollection.TeklaNotRunning))
+            {
+                MessageBox.Show(message, StringResource.ExceptionCaught, MessageBoxButton.OK, MessageBoxImage.Error);
                 GlobalVars.MainWindow.Close();
+            }
+
+            return isClosing;
         }
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             CheckApplicationInstance();
+            MachineValidator.Run();
         }
 
         private void CheckApplicationInstance()
