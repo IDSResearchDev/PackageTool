@@ -56,7 +56,10 @@ namespace PackageTool
             }
 
             if (!isActivated)
+            {
                 App.Current.Shutdown();
+            }
+                
         }
     }
 }
