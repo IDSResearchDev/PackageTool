@@ -275,12 +275,14 @@
                                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                                         <RadioButton Name="RbAutoScaling"
                                                      Margin="10,0,10,0"
+                                                     VerticalAlignment="Center"
                                                      VerticalContentAlignment="Center"
                                                      Content="Auto"
                                                      GroupName="scale"
                                                      IsChecked="{Binding AutoScaling}" />
                                         <RadioButton Name="RbManualScaling"
                                                      Margin="0,0,10,0"
+                                                     VerticalAlignment="Center"
                                                      VerticalContentAlignment="Center"
                                                      Content="Scale"
                                                      GroupName="scale"
