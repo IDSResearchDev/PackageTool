@@ -43,11 +43,7 @@
         </ObjectDataProvider>
         <ObjectDataProvider x:Key="Printer"
                             MethodName="PrinterInstance"
-                            ObjectType="{x:Type teklaHelper:Utilities}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Static Member="root:Resources.TeklaTargetVersion"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
+                            ObjectType="{x:Type teklaHelper:Utilities}"/>
         <ObjectDataProvider x:Key="KssTemplates"
                             MethodName="GetKSSTemplates"
                             ObjectType="{x:Type teklaHelper:Utilities}" >
