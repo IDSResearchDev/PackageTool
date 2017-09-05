@@ -5,6 +5,7 @@
         xmlns:interact="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:teklaHelper="clr-namespace:Rnd.TeklaStructure.Helper;assembly=Rnd.TeklaStructure.Helper"
         xmlns:viewModel="clr-namespace:PackageTool.ViewModel"
+        xmlns:root="clr-namespace:PackageTool.Properties"
         Title="{Binding AppTitle}"
         Width="740"
         Height="717.5"
@@ -42,10 +43,18 @@
         </ObjectDataProvider>
         <ObjectDataProvider x:Key="Printer"
                             MethodName="PrinterInstance"
-                            ObjectType="{x:Type teklaHelper:Utilities}" />
+                            ObjectType="{x:Type teklaHelper:Utilities}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Static Member="root:Resources.TeklaTargetVersion"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
         <ObjectDataProvider x:Key="KssTemplates"
                             MethodName="GetKSSTemplates"
-                            ObjectType="{x:Type teklaHelper:Utilities}" />
+                            ObjectType="{x:Type teklaHelper:Utilities}" >
+            <ObjectDataProvider.MethodParameters>
+                <x:Static Member="root:Resources.TeklaTargetVersion"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
 
 
         <converter:BoolToVisibilitConverter x:Key="BoolToVisibilityConverter" />

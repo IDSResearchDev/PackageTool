@@ -120,6 +120,9 @@
   <data name="NoOpenModel" xml:space="preserve">
     <value>There's no open Tekla Model.</value>
   </data>
+  <data name="RemoteConnectionFailed" xml:space="preserve">
+    <value>Remote connection to Tekla Structures failed</value>
+  </data>
   <data name="TeklaNotRunning" xml:space="preserve">
     <value>TeklaStructure is not running: Package Tool should be executed in Tekla Toolbar Macro.</value>
   </data>

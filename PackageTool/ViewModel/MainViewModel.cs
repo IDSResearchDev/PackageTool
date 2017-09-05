@@ -31,7 +31,9 @@ namespace PackageTool.ViewModel
         {
 
             _utilities = new Utilities();
-            _helper = new Helper.Utilities();
+            //_helper = new Helper.Utilities();
+            _helper = new Helper.Utilities(PackageTool.Properties.Resources.TeklaTargetVersion);
+
             CreateReportTxt();
 
             _TransmittalDate = DateTime.Now.ToShortDateString();
@@ -1191,6 +1193,7 @@ namespace PackageTool.ViewModel
         private void Initialize()
         {
             CanValidate = false;
+            this._helper.GetConncectionStatus();
             GetProjectInfo();
             GlobalVars.FirmFolder = this._helper.GetAdvancedOption("XS_FIRM");
             GlobalVars.ModelFolder = this._helper.ModelFolder();
@@ -1384,7 +1387,7 @@ namespace PackageTool.ViewModel
                     if (VersionComparer.IsUptoDate(updateVersion, GlobalVars.AppVersion))
                     {
                         value = true;
-                        GetUpdate = string.Empty;                        
+                        GetUpdate = string.Empty;
                     }
                     else
                     {
@@ -1534,7 +1537,7 @@ namespace PackageTool.ViewModel
                     view.Owner = this.GetCurrentWindow();
 
                     foreach (var item in GlobalVars.PrinterSelection)
-                    { view.vm.PrinterSelection.Add(item); }                   
+                    { view.vm.PrinterSelection.Add(item); }
                     view.ShowDialog();
 
                 });
