@@ -152,7 +152,7 @@ namespace Rnd.TeklaStructure.Helper
                 var teklaVersion = Process.GetProcessById(proc[0].Id).MainModule.FileVersionInfo.ProductVersion;
                 Version v1 = new Version(teklaVersion);
                 Version v2 = new Version(_targetVersion);
-                if(v1 != v2)
+                if (v1.ToString(2) != v2.ToString(2))
                 {
                     throw new ArgumentException(ErrorCollection.RemoteConnectionFailed);
                 }
