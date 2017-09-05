@@ -107,7 +107,7 @@ namespace Rnd.TeklaStructure.Helper
         {
             //string xs = "XS_FIRM";
             string val = "";
-            GetConncectionStatus();
+            //GetConncectionStatus();
             TeklaStructuresSettings.GetAdvancedOption(attribute, ref val);
             return val;
         }

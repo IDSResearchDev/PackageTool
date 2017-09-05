@@ -1441,7 +1441,7 @@ namespace PackageTool.ViewModel
                     UpdateXsrTitle();
 
                     CanValidate = true;
-                    new Helper.Utilities().GetConncectionStatus();
+                    _helper.GetConncectionStatus();
 
                     if (!string.IsNullOrEmpty(PackageDirectory) && _utilities.CheckIfDirectoryExists(PackageDirectory) && !string.IsNullOrEmpty(ConfigurationType)
                         && (string.IsNullOrEmpty(ProjectNumber) || string.IsNullOrEmpty(TransmittalNumber) ||
