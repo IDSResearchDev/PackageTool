@@ -107,11 +107,11 @@ namespace Rnd.TeklaStructure.Helper
         {
             //string xs = "XS_FIRM";
             string val = "";
-            GetConncectionStatus();
+            //GetConncectionStatus();
             TeklaStructuresSettings.GetAdvancedOption(attribute, ref val);
             return val;
         }
-        
+
 
         public string ModelFolder()
         {
@@ -145,7 +145,7 @@ namespace Rnd.TeklaStructure.Helper
         public void GetConncectionStatus()
         {
             var proc = Process.GetProcessesByName("TeklaStructures");
-            
+
             if (proc.Length <= 0) { throw new ArgumentException(ErrorCollection.TeklaNotRunning); }
             else
             {
@@ -156,7 +156,7 @@ namespace Rnd.TeklaStructure.Helper
                 {
                     throw new ArgumentException(ErrorCollection.RemoteConnectionFailed);
                 }
-                
+
             }
         }
 
@@ -180,7 +180,7 @@ namespace Rnd.TeklaStructure.Helper
         public void CopyMacrosToFirm(string firmLocation)
         {
             string destination = firmLocation + @"\macros\modeling\";
-            CopyMacros(destination);            
+            CopyMacros(destination);
 
             ////CreateDXFMacroFile
             //File.Copy(AppDomain.CurrentDomain.BaseDirectory + @"macro\PackageTool DXFConverter.cs", path + this._dxfMacroFile, true);

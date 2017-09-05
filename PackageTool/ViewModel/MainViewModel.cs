@@ -31,7 +31,7 @@ namespace PackageTool.ViewModel
         {
 
             _utilities = new Utilities();
-            //_helper = new Helper.Utilities(PackageTool.Properties.Resources.TeklaTargetVersion);
+            //_helper = new Helper.Utilities();
             _helper = new Helper.Utilities(PackageTool.Properties.Resources.TeklaTargetVersion);
 
             CreateReportTxt();
@@ -1387,7 +1387,7 @@ namespace PackageTool.ViewModel
                     if (VersionComparer.IsUptoDate(updateVersion, GlobalVars.AppVersion))
                     {
                         value = true;
-                        GetUpdate = string.Empty;                        
+                        GetUpdate = string.Empty;
                     }
                     else
                     {
@@ -1441,7 +1441,7 @@ namespace PackageTool.ViewModel
                     UpdateXsrTitle();
 
                     CanValidate = true;
-                    new Helper.Utilities().GetConncectionStatus();
+                    _helper.GetConncectionStatus();
 
                     if (!string.IsNullOrEmpty(PackageDirectory) && _utilities.CheckIfDirectoryExists(PackageDirectory) && !string.IsNullOrEmpty(ConfigurationType)
                         && (string.IsNullOrEmpty(ProjectNumber) || string.IsNullOrEmpty(TransmittalNumber) ||
@@ -1537,7 +1537,7 @@ namespace PackageTool.ViewModel
                     view.Owner = this.GetCurrentWindow();
 
                     foreach (var item in GlobalVars.PrinterSelection)
-                    { view.vm.PrinterSelection.Add(item); }                   
+                    { view.vm.PrinterSelection.Add(item); }
                     view.ShowDialog();
 
                 });

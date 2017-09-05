@@ -637,8 +637,12 @@ namespace PackageTool.ViewModel
 
             var helper = new Rnd.TeklaStructure.Helper.Utilities();
             List<string> fileDirectories = new List<string>();
-            helper.AddPaths(fileDirectories, "XS_PROJECT");
             helper.AddPaths(fileDirectories, "XS_TEMPLATE_DIRECTORY");
+            fileDirectories.Add(@"./");
+            helper.AddPaths(fileDirectories, "XS_PROJECT");
+            helper.AddPaths(fileDirectories, "XS_FIRM");
+            helper.AddPaths(fileDirectories, "XS_TEMPLATE_DIRECTORY_SYSTEM");
+            helper.AddPaths(fileDirectories, "XS_SYSTEM");
             string[] reportNames = helper.GetMultiDirectoryList(fileDirectories, "rpt");
 
             foreach (var file in reportNames)
