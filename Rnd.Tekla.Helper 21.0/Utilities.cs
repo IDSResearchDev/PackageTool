@@ -7,11 +7,19 @@ using Tekla.Structures;
 using Tekla.Structures.Catalogs;
 using Tekla.Structures.Model;
 using Tekla.Structures.Dialog.UIControls;
+using System.Linq;
 
 namespace Rnd.TeklaStructure.Helper
 {
     public class Utilities
     {
+        string _targetVersion;
+        public Utilities() { }
+
+        public Utilities(string targetVersion)
+        {
+            _targetVersion = targetVersion;
+        }
         //private string _dwgMacroFile = @"\macros\modeling\PackageTool DWGConverter.cs";//@"C:\TeklaStructures\21.0\Environments\usimp\macros\drawings\PackageTool DWGConverter.cs";
 
         //private string _dxfMacroFile = @"\macros\modeling\PackageTool DXFConverter.cs";//@"C:\TeklaStructures\21.0\Environments\usimp\us_roles\steel\macros\modeling\PackageTool DXFConverter.cs";
@@ -137,11 +145,19 @@ namespace Rnd.TeklaStructure.Helper
         public void GetConncectionStatus()
         {
             var proc = Process.GetProcessesByName("TeklaStructures");
+            
             if (proc.Length <= 0) { throw new ArgumentException(ErrorCollection.TeklaNotRunning); }
-
-            //Model model = new Model();
-
-            //if (!model.GetConnectionStatus()) { throw new ArgumentException(ErrorCollection.TeklaNotRunning); }
+            else
+            {
+                var teklaVersion = Process.GetProcessById(proc[0].Id).MainModule.FileVersionInfo.ProductVersion;
+                Version v1 = new Version(teklaVersion);
+                Version v2 = new Version(_targetVersion);
+                if(v1 != v2)
+                {
+                    throw new ArgumentException(ErrorCollection.RemoteConnectionFailed);
+                }
+                
+            }
         }
 
         public void CheckSelectedDrawing()

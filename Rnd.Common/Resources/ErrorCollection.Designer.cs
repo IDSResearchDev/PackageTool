@@ -70,6 +70,15 @@ namespace Rnd.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remote connection to Tekla Structures failed.
+        /// </summary>
+        public static string RemoteConnectionFailed {
+            get {
+                return ResourceManager.GetString("RemoteConnectionFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TeklaStructure is not running: Package Tool should be executed in Tekla Toolbar Macro..
         /// </summary>
         public static string TeklaNotRunning {

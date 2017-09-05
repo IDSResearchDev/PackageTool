@@ -23,6 +23,10 @@ namespace PackageTool
         {
             if (e.Exception.InnerException != null)
             {
+                if(e.Exception.InnerException.InnerException.InnerException != null)
+                {
+                    this.CheckApplicationException(e.Exception.InnerException.InnerException.InnerException.Message);
+                }
                 this.CheckApplicationException(e.Exception.InnerException.InnerException.Message);
                 if (e.Exception.InnerException.Message == "Transmittal letter is open.")
                 {
@@ -47,9 +51,17 @@ namespace PackageTool
         private bool CheckApplicationException(string message)
         {
             bool isClosing = false;
-            if (isClosing = (message == ErrorCollection.NoOpenModel || message == ErrorCollection.TeklaNotRunning))
+            if (isClosing = (message == ErrorCollection.NoOpenModel || message == ErrorCollection.TeklaNotRunning || message == ErrorCollection.RemoteConnectionFailed))
             {
-                MessageBox.Show(message, StringResource.ExceptionCaught, MessageBoxButton.OK, MessageBoxImage.Error);
+                if(message == ErrorCollection.RemoteConnectionFailed)
+                {
+                    MessageBox.Show($"{message}: Please check if you're running TeklaStructure version {PackageTool.Properties.Resources.TeklaTargetVersion}.", StringResource.ExceptionCaught, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    MessageBox.Show(message, StringResource.ExceptionCaught, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                
                 GlobalVars.MainWindow.Close();
             }
 
