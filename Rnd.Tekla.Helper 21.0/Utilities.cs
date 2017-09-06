@@ -149,7 +149,8 @@ namespace Rnd.TeklaStructure.Helper
             if (proc.Length <= 0) { throw new ArgumentException(ErrorCollection.TeklaNotRunning); }
             else
             {
-                var teklaVersion = Process.GetProcessById(proc[0].Id).MainModule.FileVersionInfo.ProductVersion;
+                var process = Process.GetProcessById(proc[0].Id);
+                var teklaVersion = $"{process.MainModule.FileVersionInfo.ProductMajorPart}.{process.MainModule.FileVersionInfo.ProductMinorPart}";
                 Version v1 = new Version(teklaVersion);
                 Version v2 = new Version(_targetVersion);
                 if (v1.ToString(2) != v2.ToString(2))
