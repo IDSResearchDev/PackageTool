@@ -827,7 +827,7 @@ namespace PackageTool.ViewModel
             if (value)
             {
                 LblWaitContent = "Package Tool Completed";
-                LblDetailsContent = "It's done.";
+                LblDetailsContent = "Completed.";
                 Visibility = Visibility.Visible;
             }
             else
