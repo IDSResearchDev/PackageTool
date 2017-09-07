@@ -116,7 +116,7 @@ namespace Rnd.TeklaStructure.Helper
         public string ModelFolder()
         {
             var model = new Model();
-            GetConncectionStatus();
+            //GetConncectionStatus();
             return model.GetInfo().ModelPath;
         }
 
@@ -225,7 +225,7 @@ namespace Rnd.TeklaStructure.Helper
             List<string> fileDirectories = new List<string>();
             List<string> kssFiles = new List<string>(); //;
 
-            GetConncectionStatus();
+            //GetConncectionStatus();
             var path = new Tekla.Structures.Model.Model().GetInfo().ModelPath;
 
             if (!string.IsNullOrEmpty(path))

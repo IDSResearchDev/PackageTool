@@ -23,7 +23,7 @@ namespace PackageTool
         {
             if (e.Exception.InnerException != null)
             {
-                if (e.Exception.InnerException.InnerException.InnerException != null)
+                if (e.Exception.InnerException?.InnerException?.InnerException != null)
                 {
                     this.CheckApplicationException(e.Exception.InnerException.InnerException.InnerException.Message);
                 }
@@ -41,7 +41,7 @@ namespace PackageTool
                 if (!this.CheckApplicationException(e.Exception.Message))
                 {
                     MessageBox.Show(e.Exception.Message, StringResource.ExceptionCaught, MessageBoxButton.OK, MessageBoxImage.Error);
-                    new Rnd.TeklaStructure.Helper.Utilities().GetConncectionStatus();
+                    new Rnd.TeklaStructure.Helper.Utilities(PackageTool.Properties.Resources.TeklaTargetVersion).GetConncectionStatus();
                 }
             }
 
