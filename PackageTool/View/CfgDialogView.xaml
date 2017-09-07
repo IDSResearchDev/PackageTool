@@ -95,6 +95,7 @@
                 <TextBox Name="TxtBlockType"
                          Margin="10"
                          BorderThickness="0"
+                         Background="Transparent"
                          IsReadOnly="True"
                          IsTabStop="False"
                          Style="{x:Null}"
