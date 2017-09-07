@@ -23,7 +23,7 @@ namespace PackageTool
         {
             if (e.Exception.InnerException != null)
             {
-                if(e.Exception.InnerException.InnerException.InnerException != null)
+                if (e.Exception.InnerException?.InnerException?.InnerException != null)
                 {
                     this.CheckApplicationException(e.Exception.InnerException.InnerException.InnerException.Message);
                 }
@@ -34,14 +34,14 @@ namespace PackageTool
                                                   Environment.NewLine, "Path: ", GlobalVars.OutputTransmittalLetter),
                                                   "Transmittal letter is open", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                
+
             }
             else
             {
-                if(!this.CheckApplicationException(e.Exception.Message))
+                if (!this.CheckApplicationException(e.Exception.Message))
                 {
                     MessageBox.Show(e.Exception.Message, StringResource.ExceptionCaught, MessageBoxButton.OK, MessageBoxImage.Error);
-                    new Rnd.TeklaStructure.Helper.Utilities().GetConncectionStatus();
+                    new Rnd.TeklaStructure.Helper.Utilities(PackageTool.Properties.Resources.TeklaTargetVersion).GetConncectionStatus();
                 }
             }
 
@@ -53,7 +53,7 @@ namespace PackageTool
             bool isClosing = false;
             if (isClosing = (message == ErrorCollection.NoOpenModel || message == ErrorCollection.TeklaNotRunning || message == ErrorCollection.RemoteConnectionFailed))
             {
-                if(message == ErrorCollection.RemoteConnectionFailed)
+                if (message == ErrorCollection.RemoteConnectionFailed)
                 {
                     MessageBox.Show($"{message}: Please check if you're running TeklaStructure version {PackageTool.Properties.Resources.TeklaTargetVersion}.", StringResource.ExceptionCaught, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -61,7 +61,7 @@ namespace PackageTool
                 {
                     MessageBox.Show(message, StringResource.ExceptionCaught, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                
+
                 GlobalVars.MainWindow.Close();
             }
 
