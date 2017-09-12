@@ -39,7 +39,7 @@ namespace Tekla.Technology.Akit.UserScript
             string currentVersion = TeklaStructuresInfo.GetCurrentProgramVersion();
             var version = currentVersion.Split(' ');
 
-            switch (version)
+            switch (version[0])
             {
                 case "2016":
                     return "2016.0";

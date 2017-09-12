@@ -232,6 +232,10 @@
       <Project>{0d1874f6-a09a-4fc4-a02c-1ed023a7e63d}</Project>
       <Name>Rnd.DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Rnd.Tekla.Helper 2017.0\Rnd.TeklaStructure.Helper.csproj">
+      <Project>{2fb766b1-075b-4e1b-af77-1b1ab30891d6}</Project>
+      <Name>Rnd.TeklaStructure.Helper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Rnd.Theme.Bootstrap\Rnd.Theme.Bootstrap.csproj">
       <Project>{d5f6dbad-eb28-4098-a3d6-8d6c89b13fcb}</Project>
       <Name>Rnd.Theme.Bootstrap</Name>
