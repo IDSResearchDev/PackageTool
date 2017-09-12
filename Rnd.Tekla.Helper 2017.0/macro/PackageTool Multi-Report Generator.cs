@@ -11,7 +11,8 @@ using Tekla.Structures.Model;
 using Tekla.Technology.Akit.UserScript;
 using Tekla.Technology.Scripting;
 
-[assembly: Tekla.Technology.Scripting.Compiler.Reference(@"%XSBIN%\plugins\Interop.Excel.dll")]
+#pragma reference @"%XSDATADIR%\environments\common\exceldesign\Interop.Excel.dll"
+//[assembly: Tekla.Technology.Scripting.Compiler.Reference(@"%XSBIN%\plugins\Interop.Excel.dll")]
 
 namespace Tekla.Technology.Akit.UserScript
 {
@@ -761,12 +762,12 @@ namespace Tekla.Technology.Akit.UserScript
         static Tekla.Technology.Akit.IScript akit;
         public static void Run(Tekla.Technology.Akit.IScript akit_in)
         {
-            System.Runtime.Remoting.Lifetime.ClientSponsor sponsor = null;
+            //System.Runtime.Remoting.Lifetime.ClientSponsor sponsor = null;
             try
             {
-                sponsor = new System.Runtime.Remoting.Lifetime.ClientSponsor();
+                //sponsor = new System.Runtime.Remoting.Lifetime.ClientSponsor();
                 akit = akit_in;
-                sponsor.Register((System.MarshalByRefObject)akit);
+                //sponsor.Register((System.MarshalByRefObject)akit);
                 //Application.Run(new ReportGenerator());
                 //Application.Run(new Checker());
                 new Checker();
@@ -775,13 +776,13 @@ namespace Tekla.Technology.Akit.UserScript
             {
                 System.Windows.Forms.MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
             }
-            finally
-            {
-                if (sponsor != null)
-                {
-                    sponsor.Close();
-                }
-            }
+            //finally
+            //{
+            //    if (sponsor != null)
+            //    {
+            //        sponsor.Close();
+            //    }
+            //}
         }
 
         public static void OpenReportDialog(string reportDisplay, string externalBrowser, string title1, string title2, string title3)
