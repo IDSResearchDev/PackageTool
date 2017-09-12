@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PackageTool.Properties {
+namespace Rnd.TeklaStructure.Helper.Properties {
     using System;
     
     
@@ -22,7 +22,7 @@ namespace PackageTool.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
+    internal class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,10 +36,10 @@ namespace PackageTool.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PackageTool.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Rnd.TeklaStructure.Helper.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace PackageTool.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,57 +61,12 @@ namespace PackageTool.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://webservice2.intdesignservices.com/.
+        ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        public static string ActivationUrl {
+        internal static byte[] KISS1_1_Export_mdd {
             get {
-                return ResourceManager.GetString("ActivationUrl", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt; 
-        ///&lt;recentdata&gt;
-        ///  &lt;!-- Export tab --&gt;
-        ///  &lt;version&gt;1.1&lt;/version&gt;
-        ///  &lt;type /&gt;
-        ///  &lt;cfg /&gt;
-        ///  &lt;packagedirectory /&gt;
-        ///  &lt;date /&gt;
-        ///  &lt;printerinstance /&gt;
-        ///  &lt;!-- Transmittal tab --&gt;
-        ///  &lt;projectnumber /&gt;
-        ///  &lt;transmittalnumber /&gt;
-        ///  &lt;projectname /&gt;
-        ///  &lt;location /&gt;
-        ///  &lt;remarks /&gt;
-        ///  &lt;attention /&gt;
-        ///  &lt;signatory /&gt;
-        ///  &lt;outputdirectory /&gt;
-        ///&lt;/recentdata&gt;
-        ///.
-        /// </summary>
-        public static string pkgrecentdata {
-            get {
-                return ResourceManager.GetString("pkgrecentdata", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://idsftpserver.com/rd/update/.
-        /// </summary>
-        public static string ServerPath {
-            get {
-                return ResourceManager.GetString("ServerPath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 2016.1.
-        /// </summary>
-        public static string TeklaTargetVersion {
-            get {
-                return ResourceManager.GetString("TeklaTargetVersion", resourceCulture);
+                object obj = ResourceManager.GetObject("KISS1_1_Export_mdd", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }
