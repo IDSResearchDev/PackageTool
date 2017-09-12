@@ -55,7 +55,7 @@ namespace PackageTool
             {
                 if (message == ErrorCollection.RemoteConnectionFailed)
                 {
-                    MessageBox.Show($"{message}: Please check if you're running TeklaStructure version {PackageTool.Properties.Resources.TeklaTargetVersion}.", StringResource.ExceptionCaught, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"{message}: Please check if you're running TeklaStructure version {PackageTool.Properties.Resources.TeklaTargetVersion} or if there is no open model.", StringResource.ExceptionCaught, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {

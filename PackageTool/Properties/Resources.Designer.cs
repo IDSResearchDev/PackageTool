@@ -107,7 +107,7 @@ namespace PackageTool.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 21.1.
+        ///   Looks up a localized string similar to 2016.0.
         /// </summary>
         public static string TeklaTargetVersion {
             get {

@@ -125,7 +125,7 @@
     <value>http://idsftpserver.com/rd/update/</value>
   </data>
   <data name="TeklaTargetVersion" xml:space="preserve">
-    <value>21.1</value>
+    <value>2016.0</value>
   </data>
   <data name="ActivationUrl" xml:space="preserve">
     <value>http://webservice2.intdesignservices.com/</value>
