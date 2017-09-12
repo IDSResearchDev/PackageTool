@@ -55,7 +55,7 @@ namespace PackageTool
             {
                 if (message == ErrorCollection.RemoteConnectionFailed)
                 {
-                    MessageBox.Show($"{message}: Please check if you're running TeklaStructure version {PackageTool.Properties.Resources.TeklaTargetVersion} or if there is no open model.", StringResource.ExceptionCaught, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"{message}: Please check if you're running TeklaStructure version {GetTeklaTargetVersion()} or if there is no open model.", StringResource.ExceptionCaught, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
@@ -66,6 +66,27 @@ namespace PackageTool
             }
 
             return isClosing;
+        }
+
+        private string GetTeklaTargetVersion()
+        {
+            var targetVersion = PackageTool.Properties.Resources.TeklaTargetVersion;
+            switch (PackageTool.Properties.Resources.TeklaTargetVersion)
+            {
+                case "2016.0":
+                    targetVersion = "2016";
+                    break;
+                case "2016.1":
+                    targetVersion = "2016i";
+                    break;
+                case "2017.0":
+                    targetVersion = "2017";
+                    break;
+                default:
+                    break;
+            }
+
+            return targetVersion;
         }
 
         private void Application_Startup(object sender, StartupEventArgs e)
